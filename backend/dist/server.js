@@ -33,6 +33,7 @@ const notFound_1 = require("./middleware/notFound");
 const logger_1 = __importDefault(require("./utils/logger"));
 // Initialize Express app
 const app = (0, express_1.default)();
+app.set("trust proxy", 1);
 // ============================================
 // MIDDLEWARE
 // ============================================
