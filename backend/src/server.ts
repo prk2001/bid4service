@@ -9,6 +9,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
 // Load environment variables
+import socialRoutes from './routes/social.routes';
 dotenv.config();
 
 // Import routes
@@ -148,6 +149,7 @@ app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/upload', uploadRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/social', socialRoutes);
 
 // ============================================
 // ERROR HANDLING
