@@ -34,6 +34,7 @@ import logger from './utils/logger';
 // Initialize Express app
 const app: Express = express();
 app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 // ============================================
 // MIDDLEWARE
