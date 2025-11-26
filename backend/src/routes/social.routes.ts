@@ -54,15 +54,15 @@ router.get('/social/og/:contentType/:contentId', socialShareController.getOpenGr
 // ============================================
 
 // Referral links
-router.get('/referrals/link', authenticate, referralController.getReferralLink);
-router.post('/referrals/create', authenticate, referralController.createReferral);
+router.get('/referrals/link', authenticate, referralController.getReferralLink.bind(referralController));
+router.post('/referrals/create', authenticate, referralController.createReferral.bind(referralController));
 
 // Stats and history
-router.get('/referrals/stats', authenticate, referralController.getStats);
-router.get('/referrals/history', authenticate, referralController.getHistory);
+router.get('/referrals/stats', authenticate, referralController.getStats.bind(referralController));
+router.get('/referrals/history', authenticate, referralController.getHistory.bind(referralController));
 
 // Leaderboard (public)
-router.get('/referrals/leaderboard', referralController.getLeaderboard);
+router.get('/referrals/leaderboard', referralController.getLeaderboard.bind(referralController));
 
 // Tracking
 router.post('/referrals/track/:code', referralController.trackClick);

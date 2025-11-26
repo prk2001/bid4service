@@ -42,13 +42,13 @@ router.get('/social/og/:contentType/:contentId', social_share_controller_1.socia
 // REFERRAL ROUTES
 // ============================================
 // Referral links
-router.get('/referrals/link', auth_1.authenticate, referral_controller_1.referralController.getReferralLink);
-router.post('/referrals/create', auth_1.authenticate, referral_controller_1.referralController.createReferral);
+router.get('/referrals/link', auth_1.authenticate, referral_controller_1.referralController.getReferralLink.bind(referral_controller_1.referralController));
+router.post('/referrals/create', auth_1.authenticate, referral_controller_1.referralController.createReferral.bind(referral_controller_1.referralController));
 // Stats and history
-router.get('/referrals/stats', auth_1.authenticate, referral_controller_1.referralController.getStats);
-router.get('/referrals/history', auth_1.authenticate, referral_controller_1.referralController.getHistory);
+router.get('/referrals/stats', auth_1.authenticate, referral_controller_1.referralController.getStats.bind(referral_controller_1.referralController));
+router.get('/referrals/history', auth_1.authenticate, referral_controller_1.referralController.getHistory.bind(referral_controller_1.referralController));
 // Leaderboard (public)
-router.get('/referrals/leaderboard', referral_controller_1.referralController.getLeaderboard);
+router.get('/referrals/leaderboard', referral_controller_1.referralController.getLeaderboard.bind(referral_controller_1.referralController));
 // Tracking
 router.post('/referrals/track/:code', referral_controller_1.referralController.trackClick);
 router.post('/referrals/signup', referral_controller_1.referralController.processSignup);
