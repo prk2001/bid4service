@@ -11,7 +11,7 @@ class ReferralController {
     // Get user's referral link
     async getReferralLink(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -34,7 +34,7 @@ class ReferralController {
     // Create new referral
     async createReferral(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -61,7 +61,7 @@ class ReferralController {
     // Get user's referral statistics
     async getStats(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -82,7 +82,7 @@ class ReferralController {
     // Get user's referral history
     async getHistory(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -179,7 +179,7 @@ class ReferralController {
     // Request payout for earned rewards
     async requestPayout(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -215,7 +215,7 @@ class ReferralController {
     // Get user's custom referral code
     async getCustomCode(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
@@ -236,7 +236,7 @@ class ReferralController {
     // Set user's custom referral code
     async setCustomCode(req, res, next) {
         try {
-            const userId = req.user?.id;
+            const userId = req.user?.userId;
             if (!userId) {
                 return res.status(401).json({
                     success: false,
