@@ -1,4 +1,33 @@
 // @ts-nocheck
+async getReferralLink(req: Request, res: Response, next: NextFunction) {
+    console.log('=== getReferralLink called ===');
+    try {
+      const userId = req.user?.id;
+      console.log('userId:', userId);
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: 'Authentication required',
+        });
+      }
+
+      const { type } = req.query;
+      const referralType = (type as string) || 'HOMEOWNER';
+      console.log('referralType:', referralType);
+
+      const link = await referralService.getReferralLink(userId, referralType);
+      console.log('link:', link);
+
+      res.json({
+        success: true,
+        data: { link },
+      });
+    } catch (error) {
+      console.error('=== getReferralLink ERROR ===', error);
+      next(error);
+    }
+  }
+
 // ============================================
 // BID4SERVICE - REFERRAL CONTROLLER
 // ============================================
