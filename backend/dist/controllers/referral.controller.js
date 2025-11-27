@@ -1,35 +1,10 @@
 "use strict";
+// @ts-nocheck
+// ============================================
+// BID4SERVICE - REFERRAL CONTROLLER
+// ============================================
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.referralController = exports.ReferralController = void 0;
-// @ts-nocheck
-async;
-getReferralLink(req, Request, res, Response, next, express_1.NextFunction);
-{
-    console.log('=== getReferralLink called ===');
-    try {
-        const userId = req.user?.id;
-        console.log('userId:', userId);
-        if (!userId) {
-            return res.status(401).json({
-                success: false,
-                message: 'Authentication required',
-            });
-        }
-        const { type } = req.query;
-        const referralType = type || 'HOMEOWNER';
-        console.log('referralType:', referralType);
-        const link = await referral_service_1.referralService.getReferralLink(userId, referralType);
-        console.log('link:', link);
-        res.json({
-            success: true,
-            data: { link },
-        });
-    }
-    catch (error) {
-        console.error('=== getReferralLink ERROR ===', error);
-        next(error);
-    }
-}
 const referral_service_1 = require("../services/referral.service");
 class ReferralController {
     // GET /api/v1/referrals/link
