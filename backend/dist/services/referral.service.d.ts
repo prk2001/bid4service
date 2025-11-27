@@ -1,27 +1,8 @@
-import { ReferralType, SocialPlatform } from '@prisma/client';
+import { SocialPlatform } from '@prisma/client';
 import { ReferralRewardTier } from '../config/social.config';
-interface ReferralStats {
-    totalReferrals: number;
-    pendingReferrals: number;
-    convertedReferrals: number;
-    totalEarnings: number;
-    pendingEarnings: number;
-    currentTier: ReferralRewardTier;
-    nextTier: ReferralRewardTier | null;
-    referralsToNextTier: number;
-    conversionRate: number;
-}
-interface ReferralLeaderboard {
-    userId: string;
-    userName: string;
-    avatarUrl?: string;
-    totalReferrals: number;
-    totalEarnings: number;
-    tier: string;
-}
 interface CreateReferralOptions {
     referrerId: string;
-    referralType: ReferralType;
+    referralType: string;
     source?: SocialPlatform;
     expiresInDays?: number;
 }
@@ -47,25 +28,22 @@ export declare class ReferralService {
         rewardStatus: import(".prisma/client").$Enums.RewardStatus;
         rewardPaidAt: Date | null;
     }>;
-    getReferralLink(userId: string, referralType?: ReferralType): Promise<string>;
-    getCustomReferralCode(userId: string): Promise<string | null>;
-    setCustomReferralCode(userId: string, code: string): Promise<boolean>;
-    trackClick(referralCode: string, metadata?: Record<string, unknown>): Promise<void>;
-    processSignup(referralCode: string, newUserId: string): Promise<void>;
-    processConversion(referralCode: string): Promise<void>;
-    getReferralStats(userId: string): Promise<ReferralStats>;
+    getReferralLink(userId: string, referralType?: string): Promise<string>;
+    getReferralStats(userId: string): Promise<{
+        totalReferrals: number;
+        pendingReferrals: number;
+        convertedReferrals: number;
+        totalEarnings: number;
+        pendingEarnings: number;
+        currentTier: ReferralRewardTier;
+        nextTier: ReferralRewardTier;
+        referralsToNextTier: number;
+        conversionRate: number;
+    }>;
     getReferralHistory(userId: string, options: {
         limit?: number;
         offset?: number;
-    }): Promise<({
-        referredUser: {
-            id: string;
-            firstName: string;
-            lastName: string;
-            profileImage: string;
-            createdAt: Date;
-        };
-    } & {
+    }): Promise<{
         id: string;
         status: import(".prisma/client").$Enums.ReferralStatus;
         createdAt: Date;
@@ -83,23 +61,27 @@ export declare class ReferralService {
         rewardAmount: import("@prisma/client/runtime/library").Decimal | null;
         rewardStatus: import(".prisma/client").$Enums.RewardStatus;
         rewardPaidAt: Date | null;
-    })[]>;
-    getLeaderboard(limit?: number): Promise<ReferralLeaderboard[]>;
+    }[]>;
+    getLeaderboard(limit?: number): Promise<any[]>;
+    trackClick(code: string, metadata?: any): Promise<void>;
+    processSignup(referralCode: string, newUserId: string): Promise<void>;
+    processConversion(referralCode: string): Promise<void>;
     requestPayout(userId: string): Promise<{
         amount: number;
-        referralIds: string[];
+        referralIds: any[];
     }>;
     validateReferralCode(code: string): Promise<{
         valid: boolean;
-        referrer?: {
+        referrer?: undefined;
+    } | {
+        valid: boolean;
+        referrer: {
             firstName: string;
             lastName: string;
         };
     }>;
-    private generateUniqueCode;
-    private getTierForReferrals;
-    private getNextTier;
-    private awardTierBonus;
+    getCustomReferralCode(userId: string): Promise<string>;
+    setCustomReferralCode(userId: string, code: string): Promise<boolean>;
 }
 export declare const referralService: ReferralService;
 export {};
