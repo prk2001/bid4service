@@ -44,8 +44,22 @@ app.set("trust proxy", 1);
 app.use(helmet());
 
 // Enable CORS
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'https://web-production-3651c.up.railway.app',
+  'http://localhost:3000',
+  'http://localhost:3001'
+];
+
 app.use(cors({
-  origin: [process.env.FRONTEND_URL || 'https://web-production-3651c.up.railway.app', 'http://localhost:3000', 'http://localhost:3001'],
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, origin);
+    } else {
+      callback(null, false);
+    }
+  },
   credentials: true
 }));
 
