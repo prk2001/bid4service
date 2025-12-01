@@ -51,17 +51,7 @@ const allowedOrigins = [
   'http://localhost:3001'
 ];
 
-app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, origin);
-    } else {
-      callback(null, false);
-    }
-  },
-  credentials: true
-}));
+app.use(cors({ origin: true, credentials: true }));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
