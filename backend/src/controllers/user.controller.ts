@@ -127,6 +127,8 @@ export const updateProfile = async (
       if (Object.keys(customerData).length > 0) {
         await prisma.customerProfile.update({
           where: { userId: req.user.userId },
+        update: providerData,
+        create: { userId: req.user.userId, ...providerData },
           data: customerData,
         });
       }
@@ -149,9 +151,10 @@ export const updateProfile = async (
       if (country) providerData.country = country;
 
       if (Object.keys(providerData).length > 0) {
-        await prisma.providerProfile.update({
+        await prisma.providerProfile.upsert({
           where: { userId: req.user.userId },
-          data: providerData,
+        update: providerData,
+        create: { userId: req.user.userId, ...providerData },
         });
       }
     }
