@@ -162,10 +162,6 @@ export const updateProfile = async (
     // Get updated user
     const updatedUser = await prisma.user.findUnique({
       where: { id: req.user.userId },
-      include: {
-        customerProfile: true,
-        providerProfile: true,
-      },
       select: {
         id: true,
         email: true,
