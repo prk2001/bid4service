@@ -1,0 +1,44 @@
+use client';
+
+import { useEffect, useState } from 'react';
+import api from '@/lib/api';
+
+export default function MyBidsPage() {
+  const [bids, setBids] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBids = async () => {
+      try {
+        const response = await api.get('/bids/my-bids');
+        setBids(response.data?.data?.bids || response.data?.data || response.data || []);
+      } catch (error) {
+        console.error('Failed to fetch bids:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBids();
+  }, []);
+
+  if (loading) return <div className="p-8">Loading...</div>;
+
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">My Bids</h1>
+      {bids.length === 0 ? (
+        <p className="text-gray-500">You have not placed any bids yet.</p>
+      ) : (
+        <div className="space-y-4">
+          {bids.map((bid: any) => (
+            <div key={bid.id} className="bg-white p-4 rounded-lg shadow border">
+              <h3 className="font-semibold">{bid.job?.title || 'Job'}</h3>
+              <p className="text-green-600 font-bold">${bid.amount}</p>
+              <p className="text-sm text-gray-500">Status: {bid.status}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
