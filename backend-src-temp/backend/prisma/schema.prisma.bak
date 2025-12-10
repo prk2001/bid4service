@@ -1,0 +1,1158 @@
+// Prisma Schema for Bid4Service MVP
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+rProfile {
+  id                String             @id @default(uuid())
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+enum UserRole {
+  CUSTOMER
+  PROVIDER
+  ADMIN
+  MODERATOR
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model User {
+  id                String             @id @default(uuid())
+  email             String             @unique
+  passwordHash      String
+  role              UserRole           @default(CUSTOMER)
+  status            UserStatus         @default(ACTIVE)
+  firstName         String
+  lastName          String
+  phone             String?
+  phoneVerified     Boolean            @default(false)
+  emailVerified     Boolean            @default(false)
+  profileImage      String?
+  
+  // Verification
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  
+  // Customer specific
+  customerProfile   CustomerProfile?
+  
+  // Provider specific
+  providerProfile   ProviderProfile?
+  
+  // Relationships
+  jobsPosted        Job[]              @relation("JobPoster")
+  bids              Bid[]
+  sentMessages      Message[]          @relation("MessageSender")
+  receivedMessages  Message[]          @relation("MessageReceiver")
+  reviewsGiven      Review[]           @relation("ReviewAuthor")
+  reviewsReceived   Review[]           @relation("ReviewSubject")
+  notifications     Notification[]
+  payments          Payment[]
+
+  // Social features
+  socialAccounts    SocialAccount[]
+  socialShares      SocialShare[]
+  referralsMade     Referral[]      @relation("ReferralsMade")
+  referralsReceived Referral[]      @relation("ReferralsReceived")
+  activities        ActivityFeed[]
+  testimonials      Testimonial[]
+  socialPosts       SocialPostQueue[]
+  socialSettings    UserSocialSettings?
+
+// Social features
+  socialAccounts    SocialAccount[]
+  socialShares      SocialShare[]
+  referralsMade     Referral[]      @relation("ReferralsMade")
+  referralsReceived Referral[]      @relation("ReferralsReceived")
+  activities        ActivityFeed[]
+  testimonials      Testimonial[]
+  socialPosts       SocialPostQueue[]
+  socialSettings    UserSocialSettings?
+  
+  // Metadata
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  lastLoginAt       DateTime?
+  
+  @@index([email])
+  @@index([role])
+  @@index([status])
+}
+
+model CustomerProfile {
+  id                String             @id @default(uuid())
+  userId            String             @unique
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Address
+  address           String?
+  city              String?
+  state             String?
+  zipCode           String?
+  country           String             @default("US")
+  
+  // Preferences
+  preferredContactMethod String?        // email, phone, sms
+  budget            Float?
+  
+  // Stats
+  totalJobsPosted   Int                @default(0)
+  totalSpent        Float              @default(0)
+  averageRating     Float?
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+model ProviderProfile {
+  id                String             @id @default(uuid())
+  userId            String             @unique
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Business Info
+  businessName      String?
+  businessType      String?            // individual, company
+  ein               String?
+  licenseNumber     String?
+  licenseExpiration DateTime?
+  insuranceCertificate String?
+  insuranceExpiration DateTime?
+  
+  // Service Info
+  serviceCategories String[]           // Array of categories
+  serviceRadius     Int?               // Miles
+  yearsExperience   Int?
+  
+  // Address
+  address           String?
+  city              String?
+  state             String?
+  zipCode           String?
+  country           String             @default("US")
+  
+  // Portfolio
+  bio               String?
+  website           String?
+  portfolioImages   String[]
+  
+  // Availability
+  availableForEmergency Boolean         @default(false)
+  responseTimeHours     Int?
+  
+  // Stats
+  totalBidsSubmitted    Int            @default(0)
+  totalBidsWon          Int            @default(0)
+  totalProjectsCompleted Int           @default(0)
+  totalEarned           Float          @default(0)
+  averageRating         Float?
+  
+  // Verification
+  backgroundCheckStatus VerificationStatus @default(UNVERIFIED)
+  backgroundCheckDate   DateTime?
+  licenseVerified       Boolean        @default(false)
+  insuranceVerified     Boolean        @default(false)
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+// ============================================
+// JOB MANAGEMENT
+// ============================================
+
+enum JobStatus {
+  DRAFT
+  OPEN
+  IN_BIDDING
+  BID_ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+enum JobUrgency {
+  FLEXIBLE
+  STANDARD
+  URGENT
+  EMERGENCY
+}
+
+model Job {
+  id                String             @id @default(uuid())
+  customerId        String
+  customer          User               @relation("JobPoster", fields: [customerId], references: [id])
+  
+  // Job Details
+  title             String
+  description       String
+  category          String
+  subcategory       String?
+  
+  // Location
+  address           String
+  city              String
+  state             String
+  zipCode           String
+  latitude          Float?
+  longitude         Float?
+  
+  // Budget
+  startingBid       Float
+  maxBudget         Float?
+  currency          String             @default("USD")
+  
+  // Timeline
+  desiredStartDate  DateTime?
+  desiredEndDate    DateTime?
+  urgency           JobUrgency         @default(STANDARD)
+  
+  // Media
+  images            String[]
+  documents         String[]
+  
+  // Requirements
+  requiresLicense   Boolean            @default(false)
+  requiresInsurance Boolean            @default(false)
+  requiresBackground Boolean           @default(false)
+  minimumRating     Float?
+  
+  // Status
+  status            JobStatus          @default(DRAFT)
+  biddingCloseDate  DateTime?
+  
+  // Relationships
+  bids              Bid[]
+  acceptedBid       Bid?               @relation("AcceptedBid", fields: [acceptedBidId], references: [id])
+  acceptedBidId     String?            @unique
+  project           Project?
+  
+  // Metadata
+  views             Int                @default(0)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  publishedAt       DateTime?
+  
+  @@index([customerId])
+  @@index([status])
+  @@index([category])
+  @@index([zipCode])
+  @@index([createdAt])
+}
+
+// ============================================
+// BIDDING SYSTEM
+// ============================================
+
+enum BidStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+  EXPIRED
+}
+
+model Bid {
+  id                String             @id @default(uuid())
+  jobId             String
+  job               Job                @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  providerId        String
+  provider          User               @relation(fields: [providerId], references: [id])
+  
+  // Bid Details
+  amount            Float
+  currency          String             @default("USD")
+  proposal          String             // Detailed proposal
+  estimatedDuration Int?               // Days
+  proposedStartDate DateTime?
+  
+  // Breakdown (optional)
+  laborCost         Float?
+  materialCost      Float?
+  equipmentCost     Float?
+  
+  // Attachments
+  attachments       String[]
+  
+  // Status
+  status            BidStatus          @default(PENDING)
+  
+  // Relationships
+  acceptedForJob    Job?               @relation("AcceptedBid")
+  
+  // Metadata
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  expiresAt         DateTime?
+  viewedByCustomer  Boolean            @default(false)
+  viewedAt          DateTime?
+  
+  @@index([jobId])
+  @@index([providerId])
+  @@index([status])
+  @@index([createdAt])
+  @@unique([jobId, providerId])
+}
+
+// ============================================
+// PROJECT MANAGEMENT
+// ============================================
+
+enum ProjectStatus {
+  PENDING_START
+  IN_PROGRESS
+  PENDING_APPROVAL
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+}
+
+model Project {
+  id                String             @id @default(uuid())
+  jobId             String             @unique
+  job               Job                @relation(fields: [jobId], references: [id])
+  customerId        String
+  providerId        String
+  
+  // Project Details
+  agreedAmount      Float
+  currency          String             @default("USD")
+  status            ProjectStatus      @default(PENDING_START)
+  
+  // Timeline
+  startDate         DateTime?
+  estimatedEndDate  DateTime?
+  actualEndDate     DateTime?
+  
+  // Relationships
+  milestones        Milestone[]
+  payments          Payment[]
+
+  // Social features
+  socialAccounts    SocialAccount[]
+  socialShares      SocialShare[]
+  referralsMade     Referral[]      @relation("ReferralsMade")
+  referralsReceived Referral[]      @relation("ReferralsReceived")
+  activities        ActivityFeed[]
+  testimonials      Testimonial[]
+  socialPosts       SocialPostQueue[]
+  socialSettings    UserSocialSettings?
+  messages          Message[]
+  reviews           Review[]
+  
+  // Metadata
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  completedAt       DateTime?
+  
+  @@index([customerId])
+  @@index([providerId])
+  @@index([status])
+}
+
+model Milestone {
+  id                String             @id @default(uuid())
+  projectId         String
+  project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Milestone Details
+  title             String
+  description       String?
+  amount            Float
+  order             Int                // Sequence order
+  
+  // Completion
+  status            MilestoneStatus    @default(PENDING)
+  dueDate           DateTime?
+  completedDate     DateTime?
+  
+  // Verification
+  completionPhotos  String[]
+  notes             String?
+  
+  // Payment
+  paymentId         String?            @unique
+  payment           Payment?           @relation(fields: [paymentId], references: [id])
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([projectId])
+  @@index([status])
+}
+
+// ============================================
+// PAYMENT & ESCROW
+// ============================================
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  HELD_IN_ESCROW
+  RELEASED
+  REFUNDED
+  FAILED
+  CANCELLED
+}
+
+enum PaymentType {
+  DEPOSIT
+  MILESTONE
+  FINAL
+  REFUND
+}
+
+model Payment {
+  id                String             @id @default(uuid())
+  projectId         String
+  project           Project            @relation(fields: [projectId], references: [id])
+  userId            String
+  user              User               @relation(fields: [userId], references: [id])
+  
+  // Payment Details
+  amount            Float
+  currency          String             @default("USD")
+  type              PaymentType
+  status            PaymentStatus      @default(PENDING)
+  
+  // Stripe Integration
+  stripePaymentIntentId String?        @unique
+  stripeChargeId        String?
+  
+  // Metadata
+  description       String?
+  metadata          Json?
+  
+  // Relationships
+  milestone         Milestone?
+  
+  // Timestamps
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  authorizedAt      DateTime?
+  releasedAt        DateTime?
+  
+  @@index([projectId])
+  @@index([userId])
+  @@index([status])
+}
+
+// ============================================
+// MESSAGING
+// ============================================
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
+model Message {
+  id                String             @id @default(uuid())
+  senderId          String
+  sender            User               @relation("MessageSender", fields: [senderId], references: [id])
+  receiverId        String
+  receiver          User               @relation("MessageReceiver", fields: [receiverId], references: [id])
+  
+  // Message Content
+  content           String
+  attachments       String[]
+  
+  // Context
+  projectId         String?
+  project           Project?           @relation(fields: [projectId], references: [id])
+  
+  // Status
+  status            MessageStatus      @default(SENT)
+  readAt            DateTime?
+  
+  // Metadata
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([projectId])
+  @@index([createdAt])
+}
+
+// ============================================
+// REVIEWS & RATINGS
+// ============================================
+
+model Review {
+  id                String             @id @default(uuid())
+  projectId         String
+  project           Project            @relation(fields: [projectId], references: [id])
+  authorId          String
+  author            User               @relation("ReviewAuthor", fields: [authorId], references: [id])
+  subjectId         String
+  subject           User               @relation("ReviewSubject", fields: [subjectId], references: [id])
+  
+  // Ratings (1-5 stars)
+  overallRating     Float
+  qualityRating     Float?
+  communicationRating Float?
+  timelinessRating  Float?
+  budgetRating      Float?
+  
+  // Review Content
+  title             String?
+  comment           String
+  photos            String[]
+  
+  // Response
+  response          String?
+  responseDate      DateTime?
+  
+  // Verification
+  verified          Boolean            @default(false)
+  
+  // Helpfulness
+  helpfulCount      Int                @default(0)
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([projectId])
+  @@index([authorId])
+  @@index([subjectId])
+  @@index([overallRating])
+  @@unique([projectId, authorId])
+}
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+
+enum NotificationType {
+  JOB_POSTED
+  NEW_BID
+  BID_ACCEPTED
+  BID_REJECTED
+  PROJECT_STARTED
+  MILESTONE_COMPLETED
+  PAYMENT_RECEIVED
+  PAYMENT_RELEASED
+  REVIEW_RECEIVED
+  MESSAGE_RECEIVED
+  SYSTEM_ALERT
+}
+
+model Notification {
+  id                String             @id @default(uuid())
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Notification Details
+  type              NotificationType
+  title             String
+  message           String
+  link              String?
+  
+  // Status
+  read              Boolean            @default(false)
+  readAt            DateTime?
+  
+  // Metadata
+  metadata          Json?
+  
+  createdAt         DateTime           @default(now())
+  
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+}
+
+// ============================================
+// ADMIN & MODERATION
+// ============================================
+
+enum ReportType {
+  SPAM
+  FRAUD
+  INAPPROPRIATE_CONTENT
+  HARASSMENT
+  SCAM
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  UNDER_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
+model Report {
+  id                String             @id @default(uuid())
+  reporterId        String
+  reportedUserId    String?
+  reportedJobId     String?
+  reportedBidId     String?
+  
+  // Report Details
+  type              ReportType
+  reason            String
+  description       String?
+  evidence          String[]
+  
+  // Status
+  status            ReportStatus       @default(PENDING)
+  resolution        String?
+  resolvedBy        String?
+  resolvedAt        DateTime?
+  
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  
+  @@index([reporterId])
+  @@index([reportedUserId])
+  @@index([status])
+}
+// ============================================
+// BID4SERVICE - SOCIAL MEDIA SCHEMA EXTENSIONS
+// ============================================
+// Add these models to your existing schema.prisma file
+
+// Social Account - Linked OAuth accounts
+model SocialAccount {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider      SocialProvider
+  providerId    String   // Provider's user ID
+  accessToken   String?  @db.Text
+  refreshToken  String?  @db.Text
+  tokenExpiry   DateTime?
+  email         String?
+  displayName   String?
+  profileUrl    String?
+  avatarUrl     String?
+  rawData       Json?    // Raw profile data from provider
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([provider, providerId])
+  @@unique([userId, provider])
+  @@index([userId])
+  @@index([provider])
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+  LINKEDIN
+  APPLE
+  TWITTER
+  GITHUB
+  MICROSOFT
+}
+
+// Social Share - Track when users share content
+model SocialShare {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform      SocialPlatform
+  contentType   ShareContentType
+  contentId     String   // ID of job, project, profile, etc.
+  shareUrl      String?  @db.Text
+  clickCount    Int      @default(0)
+  conversionCount Int    @default(0)
+  metadata      Json?    // Additional tracking data
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([platform])
+  @@index([contentType, contentId])
+  @@index([createdAt])
+}
+
+enum SocialPlatform {
+  FACEBOOK
+  TWITTER
+  LINKEDIN
+  INSTAGRAM
+  PINTEREST
+  WHATSAPP
+  EMAIL
+  SMS
+  COPY_LINK
+  NEXTDOOR
+  YELP
+}
+
+enum ShareContentType {
+  JOB
+  PROJECT
+  PROFILE
+  REVIEW
+  TESTIMONIAL
+  REFERRAL_LINK
+  BUSINESS_PAGE
+}
+
+// Referral System
+model Referral {
+  id              String   @id @default(cuid())
+  referrerId      String   // User who made the referral
+  referrer        User     @relation("ReferralsMade", fields: [referrerId], references: [id], onDelete: Cascade)
+  referredUserId  String?  // User who signed up (after conversion)
+  referredUser    User?    @relation("ReferralsReceived", fields: [referredUserId], references: [id], onDelete: SetNull)
+  referralCode    String   @unique
+  referralType    ReferralType
+  status          ReferralStatus @default(PENDING)
+  source          SocialPlatform?
+  clickCount      Int      @default(0)
+  signupAt        DateTime?
+  conversionAt    DateTime? // When referral earned reward
+  rewardAmount    Decimal? @db.Decimal(10, 2)
+  rewardStatus    RewardStatus @default(PENDING)
+  rewardPaidAt    DateTime?
+  metadata        Json?
+  expiresAt       DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([referrerId])
+  @@index([referredUserId])
+  @@index([referralCode])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ReferralType {
+  HOMEOWNER
+  SERVICE_PROVIDER
+  BUSINESS
+}
+
+enum ReferralStatus {
+  PENDING
+  CLICKED
+  SIGNED_UP
+  CONVERTED
+  EXPIRED
+  CANCELLED
+}
+
+enum RewardStatus {
+  PENDING
+  EARNED
+  PAID
+  CANCELLED
+}
+
+// Activity Feed
+model ActivityFeed {
+  id            String   @id @default(cuid())
+  userId        String   // User who performed the action
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityType  ActivityType
+  entityType    String   // job, project, bid, review, etc.
+  entityId      String
+  title         String
+  description   String?  @db.Text
+  metadata      Json?    // Additional context
+  isPublic      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([activityType])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([isPublic, createdAt])
+}
+
+enum ActivityType {
+  JOB_POSTED
+  JOB_COMPLETED
+  BID_RECEIVED
+  BID_ACCEPTED
+  REVIEW_RECEIVED
+  REVIEW_POSTED
+  PROFILE_UPDATED
+  MILESTONE_COMPLETED
+  PAYMENT_RECEIVED
+  BADGE_EARNED
+  LEVEL_UP
+  FIRST_JOB
+  REFERRAL_SIGNUP
+  SOCIAL_SHARE
+}
+
+// Testimonials / Social Proof
+model Testimonial {
+  id            String   @id @default(cuid())
+  userId        String   // User giving testimonial
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerId    String?  // Service provider (if applicable)
+  content       String   @db.Text
+  rating        Int      @default(5)
+  videoUrl      String?
+  imageUrls     String[] @default([])
+  projectType   String?  // Type of service
+  location      String?
+  isFeatured    Boolean  @default(false)
+  isVerified    Boolean  @default(false)
+  isPublished   Boolean  @default(false)
+  publishedAt   DateTime?
+  socialProof   Json?    // Links to social media posts
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([providerId])
+  @@index([isFeatured])
+  @@index([isPublished])
+  @@index([rating])
+}
+
+// Social Media Post Queue (for automated posting)
+model SocialPostQueue {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platforms     SocialPlatform[]
+  contentType   ShareContentType
+  contentId     String
+  message       String   @db.Text
+  imageUrls     String[] @default([])
+  scheduledFor  DateTime?
+  status        PostQueueStatus @default(PENDING)
+  postedAt      DateTime?
+  results       Json?    // Results from each platform
+  errorMessage  String?
+  retryCount    Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([scheduledFor])
+}
+
+enum PostQueueStatus {
+  PENDING
+  SCHEDULED
+  PROCESSING
+  POSTED
+  PARTIAL
+  FAILED
+}
+
+// User Social Settings
+model UserSocialSettings {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  autoShareJobs         Boolean  @default(false)
+  autoShareReviews      Boolean  @default(false)
+  defaultSharePlatforms SocialPlatform[] @default([])
+  showActivityFeed      Boolean  @default(true)
+  allowPublicProfile    Boolean  @default(true)
+  referralCodeCustom    String?  @unique
+  notifyOnShare         Boolean  @default(true)
+  notifyOnReferral      Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+// Add these relations to your existing User model:
+// socialAccounts    SocialAccount[]
+// socialShares      SocialShare[]
+// referralsMade     Referral[]      @relation("ReferralsMade")
+// referralsReceived Referral[]      @relation("ReferralsReceived")
+// activities        ActivityFeed[]
+// testimonials      Testimonial[]
+// socialPosts       SocialPostQueue[]
+// socialSettings    UserSocialSettings?
+// ============================================
+// BID4SERVICE - SOCIAL MEDIA SCHEMA EXTENSIONS
+// ============================================
+// Add these models to your existing schema.prisma file
+
+// Social Account - Linked OAuth accounts
+model SocialAccount {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider      SocialProvider
+  providerId    String   // Provider's user ID
+  accessToken   String?  @db.Text
+  refreshToken  String?  @db.Text
+  tokenExpiry   DateTime?
+  email         String?
+  displayName   String?
+  profileUrl    String?
+  avatarUrl     String?
+  rawData       Json?    // Raw profile data from provider
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([provider, providerId])
+  @@unique([userId, provider])
+  @@index([userId])
+  @@index([provider])
+}
+
+enum SocialProvider {
+  GOOGLE
+  FACEBOOK
+  LINKEDIN
+  APPLE
+  TWITTER
+  GITHUB
+  MICROSOFT
+}
+
+// Social Share - Track when users share content
+model SocialShare {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform      SocialPlatform
+  contentType   ShareContentType
+  contentId     String   // ID of job, project, profile, etc.
+  shareUrl      String?  @db.Text
+  clickCount    Int      @default(0)
+  conversionCount Int    @default(0)
+  metadata      Json?    // Additional tracking data
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([platform])
+  @@index([contentType, contentId])
+  @@index([createdAt])
+}
+
+enum SocialPlatform {
+  FACEBOOK
+  TWITTER
+  LINKEDIN
+  INSTAGRAM
+  PINTEREST
+  WHATSAPP
+  EMAIL
+  SMS
+  COPY_LINK
+  NEXTDOOR
+  YELP
+}
+
+enum ShareContentType {
+  JOB
+  PROJECT
+  PROFILE
+  REVIEW
+  TESTIMONIAL
+  REFERRAL_LINK
+  BUSINESS_PAGE
+}
+
+// Referral System
+model Referral {
+  id              String   @id @default(cuid())
+  referrerId      String   // User who made the referral
+  referrer        User     @relation("ReferralsMade", fields: [referrerId], references: [id], onDelete: Cascade)
+  referredUserId  String?  // User who signed up (after conversion)
+  referredUser    User?    @relation("ReferralsReceived", fields: [referredUserId], references: [id], onDelete: SetNull)
+  referralCode    String   @unique
+  referralType    ReferralType
+  status          ReferralStatus @default(PENDING)
+  source          SocialPlatform?
+  clickCount      Int      @default(0)
+  signupAt        DateTime?
+  conversionAt    DateTime? // When referral earned reward
+  rewardAmount    Decimal? @db.Decimal(10, 2)
+  rewardStatus    RewardStatus @default(PENDING)
+  rewardPaidAt    DateTime?
+  metadata        Json?
+  expiresAt       DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([referrerId])
+  @@index([referredUserId])
+  @@index([referralCode])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ReferralType {
+  HOMEOWNER
+  SERVICE_PROVIDER
+  BUSINESS
+}
+
+enum ReferralStatus {
+  PENDING
+  CLICKED
+  SIGNED_UP
+  CONVERTED
+  EXPIRED
+  CANCELLED
+}
+
+enum RewardStatus {
+  PENDING
+  EARNED
+  PAID
+  CANCELLED
+}
+
+// Activity Feed
+model ActivityFeed {
+  id            String   @id @default(cuid())
+  userId        String   // User who performed the action
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityType  ActivityType
+  entityType    String   // job, project, bid, review, etc.
+  entityId      String
+  title         String
+  description   String?  @db.Text
+  metadata      Json?    // Additional context
+  isPublic      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([activityType])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([isPublic, createdAt])
+}
+
+enum ActivityType {
+  JOB_POSTED
+  JOB_COMPLETED
+  BID_RECEIVED
+  BID_ACCEPTED
+  REVIEW_RECEIVED
+  REVIEW_POSTED
+  PROFILE_UPDATED
+  MILESTONE_COMPLETED
+  PAYMENT_RECEIVED
+  BADGE_EARNED
+  LEVEL_UP
+  FIRST_JOB
+  REFERRAL_SIGNUP
+  SOCIAL_SHARE
+}
+
+// Testimonials / Social Proof
+model Testimonial {
+  id            String   @id @default(cuid())
+  userId        String   // User giving testimonial
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  providerId    String?  // Service provider (if applicable)
+  content       String   @db.Text
+  rating        Int      @default(5)
+  videoUrl      String?
+  imageUrls     String[] @default([])
+  projectType   String?  // Type of service
+  location      String?
+  isFeatured    Boolean  @default(false)
+  isVerified    Boolean  @default(false)
+  isPublished   Boolean  @default(false)
+  publishedAt   DateTime?
+  socialProof   Json?    // Links to social media posts
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([providerId])
+  @@index([isFeatured])
+  @@index([isPublished])
+  @@index([rating])
+}
+
+// Social Media Post Queue (for automated posting)
+model SocialPostQueue {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platforms     SocialPlatform[]
+  contentType   ShareContentType
+  contentId     String
+  message       String   @db.Text
+  imageUrls     String[] @default([])
+  scheduledFor  DateTime?
+  status        PostQueueStatus @default(PENDING)
+  postedAt      DateTime?
+  results       Json?    // Results from each platform
+  errorMessage  String?
+  retryCount    Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([scheduledFor])
+}
+
+enum PostQueueStatus {
+  PENDING
+  SCHEDULED
+  PROCESSING
+  POSTED
+  PARTIAL
+  FAILED
+}
+
+// User Social Settings
+model UserSocialSettings {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  autoShareJobs         Boolean  @default(false)
+  autoShareReviews      Boolean  @default(false)
+  defaultSharePlatforms SocialPlatform[] @default([])
+  showActivityFeed      Boolean  @default(true)
+  allowPublicProfile    Boolean  @default(true)
+  referralCodeCustom    String?  @unique
+  notifyOnShare         Boolean  @default(true)
+  notifyOnReferral      Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+// Add these relations to your existing User model:
+// socialAccounts    SocialAccount[]
+// socialShares      SocialShare[]
+// referralsMade     Referral[]      @relation("ReferralsMade")
+// referralsReceived Referral[]      @relation("ReferralsReceived")
+// activities        ActivityFeed[]
+// testimonials      Testimonial[]
+// socialPosts       SocialPostQueue[]
+// socialSettings    UserSocialSettings?
