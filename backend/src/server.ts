@@ -23,6 +23,7 @@ import paymentRoutes from './routes/payment.routes';
 import reviewRoutes from './routes/review.routes';
 import uploadRoutes from './routes/upload.routes';
 import adminRoutes from './routes/admin.routes';
+import bundleRoutes from './routes/bundle.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -157,6 +158,7 @@ app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/upload', uploadRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/social', socialRoutes);
+app.use('/api/v1/bundles', bundleRoutes);
 
 // ============================================
 // ERROR HANDLING
