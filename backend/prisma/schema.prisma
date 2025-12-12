@@ -73,8 +73,8 @@ model User {
   // Social features
   socialAccounts    SocialAccount[]
   socialShares      SocialShare[]
-  referralsMade     Referral[]      @relation("ReferralsMade")
-  referralsReceived Referral[]      @relation("ReferralsReceived")
+  referralsMade     Referral[]         @relation("ReferralsMade")
+  referralsReceived Referral[]         @relation("ReferralsReceived")
   activities        ActivityFeed[]
   testimonials      Testimonial[]
   socialPosts       SocialPostQueue[]
@@ -240,7 +240,12 @@ model Job {
   bids              Bid[]
   acceptedBid       Bid?               @relation("AcceptedBid", fields: [acceptedBidId], references: [id])
   acceptedBidId     String?            @unique
+  project           Project?
   questions         JobQuestion[]
+  
+  // Bundle relation
+  bundleId          String?
+  bundle            JobBundle?         @relation(fields: [bundleId], references: [id])
   
   // Metadata
   views             Int                @default(0)
@@ -253,6 +258,7 @@ model Job {
   @@index([category])
   @@index([zipCode])
   @@index([createdAt])
+  @@index([bundleId])
 }
 
 // ============================================
@@ -337,6 +343,10 @@ model Project {
   customerId        String
   providerId        String
   
+  // Bundle relation
+  bundleId          String?
+  bundle            JobBundle?         @relation(fields: [bundleId], references: [id])
+  
   // Project Details
   agreedAmount      Float
   currency          String             @default("USD")
@@ -361,6 +371,7 @@ model Project {
   @@index([customerId])
   @@index([providerId])
   @@index([status])
+  @@index([bundleId])
 }
 
 model Milestone {
@@ -473,7 +484,7 @@ model Message {
   
   // Context
   projectId         String?
-  project           Project? @relation(fields: [projectId], references: [id])
+  project           Project?           @relation(fields: [projectId], references: [id])
   
   // Status
   status            MessageStatus      @default(SENT)
@@ -623,6 +634,10 @@ model Report {
   @@index([reportedUserId])
   @@index([status])
 }
+
+// ============================================
+// SOCIAL FEATURES
+// ============================================
 
 // Social Account - Linked OAuth accounts
 model SocialAccount {
