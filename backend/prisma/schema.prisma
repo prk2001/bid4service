@@ -240,8 +240,6 @@ model Job {
   bids              Bid[]
   acceptedBid       Bid?               @relation("AcceptedBid", fields: [acceptedBidId], references: [id])
   acceptedBidId     String?            @unique
-  bundleId          String?
-  bundle            JobBundle? @relation(fields: [bundleId], references: [id])
   questions         JobQuestion[]
   
   // Metadata
@@ -274,8 +272,6 @@ model Bid {
   jobId             String
   job               Job                @relation(fields: [jobId], references: [id], onDelete: Cascade)
   providerId        String
-  bundleId          String?
-  bundle            JobBundle?         @relation(fields: [bundleId], references: [id])
   provider          User               @relation(fields: [providerId], references: [id])
   
   // Bid Details
@@ -340,8 +336,6 @@ model Project {
   job               Job                @relation(fields: [jobId], references: [id])
   customerId        String
   providerId        String
-  bundleId          String?
-  bundle            JobBundle?         @relation(fields: [bundleId], references: [id])
   
   // Project Details
   agreedAmount      Float
