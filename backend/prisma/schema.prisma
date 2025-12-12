@@ -240,7 +240,6 @@ model Job {
   bids              Bid[]
   acceptedBid       Bid?               @relation("AcceptedBid", fields: [acceptedBidId], references: [id])
   acceptedBidId     String?            @unique
-  project           Project?
   bundleId          String?
   bundle            JobBundle? @relation(fields: [bundleId], references: [id])
   questions         JobQuestion[]
@@ -980,7 +979,6 @@ model JobBundle {
   jobCount          Int
   status            BundleStatus @default(ACTIVE)
   acceptedBidId     String?
-  project           Project?
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
