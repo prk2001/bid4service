@@ -997,8 +997,6 @@ model BundleBid {
   bundleId          String
   bundle            JobBundle    @relation(fields: [bundleId], references: [id])
   providerId        String
-  bundleId          String?
-  bundle            JobBundle?         @relation(fields: [bundleId], references: [id])
   provider          User         @relation("UserBundleBids", fields: [providerId], references: [id])
   amount            Float
   proposal          String
