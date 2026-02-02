@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Clearview Mutual | Request a Free Quote</title>
+  <meta name="description" content="Get a free insurance quote from Clearview Mutual. Call (229) 834-0303 or fill out our form. Serving all of Georgia, Mon-Fri 8am-5pm.">
+  <meta name="keywords" content="insurance quote Georgia, contact insurance broker, free insurance quote, Clearview Mutual contact">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Clearview Mutual | Request a Free Quote">
+  <meta property="og:description" content="Get a free insurance quote from Clearview Mutual. Call (229) 834-0303 or fill out our form. Serving all of Georgia, Mon-Fri 8am-5pm.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://clearviewmutual.com/contact">
+  <meta property="og:image" content="">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Google Analytics snippet goes here -->
+</head>
+<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="logo">Clearview Mutual</a>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav" aria-label="Main navigation">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
+            <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
+            <li class="nav__item"><a href="contact.html" class="nav__link nav__link--active">Contact</a></li>
+            <li class="nav__item"><a href="contact.html" class="nav__link nav__link--cta">Get a Quote</a></li>
+          </ul>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="nav--mobile" id="mobile-nav" aria-label="Mobile navigation">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+          <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
+          <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
+          <li class="nav__item"><a href="contact.html" class="nav__link nav__link--cta">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero hero--sm">
+      <div class="container">
+        <div class="hero__content">
+          <h1>Let's Find Your Perfect Policy</h1>
+          <p class="hero__subtitle">Reach out today—we'll respond within 24 hours</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form & Info Section -->
+    <section class="section" id="quote">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Form -->
+          <div class="form">
+            <h2 class="mb-3">Request a Free Quote</h2>
+
+            <!-- GHL Integration Placeholder Form -->
+            <form data-form-id="ghl-contact" method="post" action="#">
+              <div class="form__group">
+                <label for="name" class="form__label form__label--required">Full Name</label>
+                <input type="text" id="name" name="name" class="form__input" required placeholder="John Smith">
+              </div>
+
+              <div class="form__group">
+                <label for="email" class="form__label form__label--required">Email</label>
+                <input type="email" id="email" name="email" class="form__input" required placeholder="john@example.com">
+              </div>
+
+              <div class="form__group">
+                <label for="phone" class="form__label form__label--required">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form__input" required placeholder="(229) 555-0123">
+              </div>
+
+              <div class="form__group">
+                <label for="insurance_type" class="form__label">Insurance Type</label>
+                <select id="insurance_type" name="insurance_type" class="form__select">
+                  <option value="">-- Select One --</option>
+                  <option value="auto">Auto Insurance</option>
+                  <option value="home">Home Insurance</option>
+                  <option value="life">Life Insurance</option>
+                  <option value="business">Business Insurance</option>
+                  <option value="multiple">Multiple/Not Sure</option>
+                </select>
+              </div>
+
+              <div class="form__group">
+                <label for="message" class="form__label">Message</label>
+                <textarea id="message" name="message" class="form__textarea" rows="5" placeholder="Tell us about your insurance needs..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                Send Message
+              </button>
+
+              <p class="form__note">
+                <i class="fas fa-shield-halved" aria-hidden="true" style="color: var(--color-success);"></i>
+                We'll respond within 24 hours. All quotes are free and no-obligation.
+              </p>
+            </form>
+          </div>
+
+          <!-- Contact Info Sidebar -->
+          <div>
+            <div class="contact-info">
+              <h3 class="mb-3">Get in Touch</h3>
+
+              <div class="contact-info__item">
+                <div class="contact-info__icon">
+                  <i class="fas fa-phone" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="contact-info__title">Phone</p>
+                  <p class="contact-info__text">
+                    <a href="tel:+12298340303">(229) 834-0303</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-info__item">
+                <div class="contact-info__icon">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="contact-info__title">Email</p>
+                  <p class="contact-info__text">
+                    <a href="mailto:patrick@clearviewmutual.com">patrick@clearviewmutual.com</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-info__item">
+                <div class="contact-info__icon">
+                  <i class="fas fa-clock" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="contact-info__title">Business Hours</p>
+                  <p class="contact-info__text">Monday - Friday<br>8:00 AM - 5:00 PM EST</p>
+                </div>
+              </div>
+
+              <div class="contact-info__item">
+                <div class="contact-info__icon">
+                  <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p class="contact-info__title">Service Area</p>
+                  <p class="contact-info__text">Serving all of Georgia</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Call CTA -->
+            <div style="margin-top: 1.5rem; text-align: center;">
+              <p style="margin-bottom: 1rem; color: var(--color-text-light);">Prefer to talk now?</p>
+              <a href="tel:+12298340303" class="btn btn--secondary" style="width: 100%;">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                Call (229) 834-0303
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section--gray">
+      <div class="container">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+          <p>Quick answers to common questions about working with Clearview Mutual</p>
+        </div>
+
+        <div class="faq-list">
+          <!-- FAQ Item 1 -->
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>Do I need to pay for a quote?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>No. All quotes are 100% free with no obligation to buy. We believe in earning your business through better rates and service, not high-pressure tactics.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>How long does it take to get a quote?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Most quotes are ready within 24-48 hours. For straightforward policies, we can often provide quotes the same day. Rush requests are available if you need coverage quickly.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>Can you help with claims?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Yes. We advocate for you throughout the claims process with your carrier. When you have a claim, you're not alone—we'll help ensure you get the settlement you deserve and navigate any complications that arise.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>Do you work with my current carrier?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>We work with all major carriers. If you're happy with yours, we'll help you get better rates. If not, we'll find you a better fit. Either way, we compare multiple options to ensure you're getting the best deal.</p>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>What if I already have insurance?</span>
+              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <div class="faq-item__answer">
+              <p>Perfect. We'll review your current coverage and see if we can save you money or improve your protection—often both. Many clients come to us already insured and leave with better coverage at a lower price.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Brand -->
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Clearview Mutual</a>
+          <p>Insurance That Works For You, Not Against You. Independent insurance brokerage serving all of Georgia.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer__links">
+          <h4 class="footer__title">Quick Links</h4>
+          <ul class="footer__nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="footer__links">
+          <h4 class="footer__title">Services</h4>
+          <ul class="footer__nav">
+            <li><a href="services.html#casualty">Casualty Insurance</a></li>
+            <li><a href="services.html#property">Property Insurance</a></li>
+            <li><a href="services.html#life">Life Insurance</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer__contact">
+          <h4 class="footer__title">Contact Us</h4>
+          <p>
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <a href="tel:+12298340303">(229) 834-0303</a>
+          </p>
+          <p>
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            <a href="mailto:patrick@clearviewmutual.com">patrick@clearviewmutual.com</a>
+          </p>
+          <p>
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            Mon-Fri 8:00 AM - 5:00 PM EST
+          </p>
+          <p>
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            Serving All of Georgia
+          </p>
+
+          <!-- Social Links -->
+          <div class="footer__social">
+            <a href="#" aria-label="Follow us on LinkedIn">
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Follow us on Facebook">
+              <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Clearview Mutual. All rights reserved.</p>
+        <div class="footer__legal">
+          <span>GA License #244229</span>
+          <span>EIN 41-3695448</span>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
