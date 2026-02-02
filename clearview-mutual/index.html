@@ -350,7 +350,9 @@
           <p>Tell us what you need and we'll shop 15+ carriers to find your best rate. No commitment required.</p>
         </div>
 
-        <div class="quote-wizard reveal" id="quoteWizard">
+        <form class="quote-wizard reveal" id="quoteWizard" name="quote-request" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quote-request">
+          <p class="hidden" style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
           <!-- Progress Steps -->
           <div class="quote-wizard__progress">
             <div class="quote-wizard__step active" data-step="1">
@@ -530,7 +532,7 @@
             <span><i class="fas fa-ban" aria-hidden="true"></i> No spam, ever</span>
             <span><i class="fas fa-hand-holding-usd" aria-hidden="true"></i> 100% free quotes</span>
           </div>
-        </div>
+        </form>
       </div>
     </section>
 
@@ -996,7 +998,9 @@
           <h3><i class="fas fa-envelope" aria-hidden="true"></i> Get Insurance Tips & Updates</h3>
           <p>Join 500+ Georgia residents who get our monthly newsletter with money-saving tips.</p>
         </div>
-        <form class="newsletter-banner__form" data-form-id="ghl-newsletter">
+        <form class="newsletter-banner__form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="newsletter">
+          <input type="hidden" name="bot-field">
           <input type="email" name="email" placeholder="Enter your email" required>
           <button type="submit" class="btn btn--primary">
             Subscribe
@@ -1130,7 +1134,9 @@
       <h3 class="exit-popup__title" id="exitPopupTitle">Wait! Don't Leave Empty-Handed</h3>
       <p class="exit-popup__text">Get our <strong>FREE Georgia Insurance Guide</strong> with tips on saving money and choosing the right coverage.</p>
 
-      <form class="exit-popup__form" data-form-id="ghl-lead-magnet">
+      <form class="exit-popup__form" name="lead-magnet" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="lead-magnet">
+        <input type="hidden" name="bot-field">
         <input type="email" name="email" placeholder="Enter your email" required class="exit-popup__input">
         <button type="submit" class="btn btn--primary">
           <i class="fas fa-download" aria-hidden="true"></i>

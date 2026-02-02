@@ -88,8 +88,10 @@
           <div class="form">
             <h2 class="mb-3">Request a Free Quote</h2>
 
-            <!-- GHL Integration Placeholder Form -->
-            <form data-form-id="ghl-contact" method="post" action="#">
+            <!-- Contact Form with Netlify -->
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="contact">
+              <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
               <div class="form__group">
                 <label for="name" class="form__label form__label--required">Full Name</label>
                 <input type="text" id="name" name="name" class="form__input" required placeholder="John Smith">

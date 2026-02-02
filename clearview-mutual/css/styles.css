@@ -2708,6 +2708,177 @@ html.dark-mode .form {
   background: var(--color-secondary);
 }
 
+/* Dark Mode - Comparison Table */
+html.dark-mode .comparison-table table {
+  background: #1e293b;
+}
+
+html.dark-mode .comparison-table th {
+  background: #0ea5e9;
+}
+
+html.dark-mode .comparison-table tr:hover td {
+  background: #334155;
+}
+
+/* Dark Mode - Broker Comparison Section */
+html.dark-mode .broker-comparison {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+html.dark-mode .broker-comparison__body {
+  background: #1e293b;
+}
+
+html.dark-mode .broker-comparison__row:hover {
+  background: #334155;
+}
+
+html.dark-mode .broker-comparison__feature {
+  color: #f1f5f9;
+}
+
+html.dark-mode .broker-comparison__feature i {
+  background: #334155;
+  color: #38bdf8;
+}
+
+html.dark-mode .broker-comparison__them,
+html.dark-mode .broker-comparison__us {
+  color: #f1f5f9;
+}
+
+html.dark-mode .comparison-bad {
+  color: #f87171;
+}
+
+html.dark-mode .comparison-good {
+  color: #4ade80;
+}
+
+html.dark-mode .comparison-tag {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+html.dark-mode .broker-comparison__footer {
+  background: #0f172a;
+  border-color: #475569;
+}
+
+html.dark-mode .verdict-label {
+  color: #38bdf8;
+}
+
+html.dark-mode .verdict-text {
+  color: #e2e8f0;
+}
+
+/* Dark Mode - Toggle Buttons */
+html.dark-mode .comparison-toggle__buttons {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+html.dark-mode .comparison-toggle__btn {
+  color: #94a3b8;
+}
+
+html.dark-mode .comparison-toggle__btn:hover {
+  color: #f1f5f9;
+}
+
+html.dark-mode .comparison-toggle__btn.active {
+  background: #0ea5e9;
+  color: #ffffff;
+}
+
+/* Dark Mode - Quote Wizard */
+html.dark-mode .quote-wizard {
+  background: #1e293b;
+}
+
+html.dark-mode .quote-wizard__title {
+  color: #f1f5f9;
+}
+
+html.dark-mode .quote-option {
+  background: #0f172a;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+html.dark-mode .quote-option:hover {
+  border-color: #0ea5e9;
+  background: #1e293b;
+}
+
+html.dark-mode .quote-option.selected {
+  background: rgba(14, 165, 233, 0.1);
+  border-color: #0ea5e9;
+}
+
+/* Dark Mode - Exit Popup */
+html.dark-mode .exit-popup__content {
+  background: #1e293b;
+}
+
+html.dark-mode .exit-popup__title {
+  color: #f1f5f9;
+}
+
+html.dark-mode .exit-popup__text {
+  color: #94a3b8;
+}
+
+/* Dark Mode - Scheduler Modal */
+html.dark-mode .scheduler-modal__content {
+  background: #1e293b;
+}
+
+html.dark-mode .scheduler-modal__title {
+  color: #f1f5f9;
+}
+
+/* Dark Mode - Newsletter Banner */
+html.dark-mode .newsletter-banner {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* Dark Mode - Form Inputs */
+html.dark-mode input[type="text"],
+html.dark-mode input[type="email"],
+html.dark-mode input[type="tel"],
+html.dark-mode input[type="date"],
+html.dark-mode select,
+html.dark-mode textarea {
+  background: #0f172a;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #64748b;
+}
+
+html.dark-mode input:focus,
+html.dark-mode select:focus,
+html.dark-mode textarea:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+/* Dark Mode - Section Backgrounds */
+html.dark-mode .section--gray {
+  background: #0f172a;
+}
+
+html.dark-mode .section-label {
+  color: #38bdf8;
+}
+
 /* --------------------------------------------------------------------------
    Hero Savings Callout
    -------------------------------------------------------------------------- */
