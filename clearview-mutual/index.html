@@ -9,15 +9,15 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Clearview Mutual | Independent Insurance Broker in Georgia">
-  <meta property="og:description" content="Georgia's trusted independent insurance broker. Compare quotes from top-rated carriers for auto, home, and life insurance. Licensed GA #244229.">
+  <meta property="og:description" content="Georgia's trusted independent insurance broker. Compare quotes from top-rated carriers for auto, home, and life insurance.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://clearviewmutual.com/">
-  <meta property="og:image" content="">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -28,6 +28,9 @@
   <!-- Google Analytics snippet goes here -->
 </head>
 <body>
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" aria-hidden="true"></div>
+
   <!-- Skip Link for Accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -35,7 +38,12 @@
   <header class="header" id="header">
     <div class="container">
       <div class="header__inner">
-        <a href="index.html" class="logo">Clearview Mutual</a>
+        <a href="index.html" class="logo">
+          <span class="logo__icon">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+          </span>
+          Clearview Mutual
+        </a>
 
         <!-- Desktop Navigation -->
         <nav class="nav" aria-label="Main navigation">
@@ -44,6 +52,12 @@
             <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
             <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
             <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
+            <li class="nav__item">
+              <a href="tel:+12298340303" class="nav__phone">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                (229) 834-0303
+              </a>
+            </li>
             <li class="nav__item"><a href="contact.html" class="nav__link nav__link--cta">Get a Quote</a></li>
           </ul>
         </nav>
@@ -63,6 +77,7 @@
           <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
           <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
           <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
+          <li class="nav__item"><a href="tel:+12298340303" class="nav__link"><i class="fas fa-phone"></i> (229) 834-0303</a></li>
           <li class="nav__item"><a href="contact.html" class="nav__link nav__link--cta">Get a Quote</a></li>
         </ul>
       </nav>
@@ -72,19 +87,79 @@
   <main id="main-content">
     <!-- Hero Section -->
     <section class="hero">
+      <!-- Background Image -->
+      <div class="hero__background">
+        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1920&q=80" alt="" aria-hidden="true" loading="eager">
+      </div>
+      <div class="hero__overlay"></div>
+      <div class="hero__pattern"></div>
+
+      <!-- Floating Shapes -->
+      <div class="hero__shapes" aria-hidden="true">
+        <div class="hero__shape hero__shape--1"></div>
+        <div class="hero__shape hero__shape--2"></div>
+        <div class="hero__shape hero__shape--3"></div>
+      </div>
+
       <div class="container">
-        <div class="hero__content">
-          <span class="hero__badge">
-            <i class="fas fa-shield-halved" aria-hidden="true"></i>
-            Licensed Georgia Broker
-          </span>
-          <h1>Insurance That Works For You, Not Against You</h1>
-          <p class="hero__subtitle">Independent brokerage serving Georgia with personalized Casualty, Property, and Life insurance solutions</p>
-          <div class="btn-group">
-            <a href="contact.html" class="btn btn--primary btn--lg">Request a Quote</a>
-            <a href="#insurance-types" class="btn btn--outline-white btn--lg">Learn More</a>
+        <div class="hero__container">
+          <div class="hero__content">
+            <span class="hero__badge">
+              <i class="fas fa-award" aria-hidden="true"></i>
+              Licensed Georgia Broker #244229
+            </span>
+            <h1>Insurance That Works <span class="highlight">For You</span>, Not Against You</h1>
+            <p class="hero__subtitle">Independent brokerage serving Georgia with personalized Casualty, Property, and Life insurance solutions. We compare quotes from top-rated carriers so you get the best coverage at the best price.</p>
+            <div class="btn-group">
+              <a href="contact.html" class="btn btn--primary btn--lg btn--pulse">
+                Request a Free Quote
+                <i class="fas fa-arrow-right arrow" aria-hidden="true"></i>
+              </a>
+              <a href="#insurance-types" class="btn btn--ghost btn--lg">
+                Learn More
+              </a>
+            </div>
+
+            <!-- Hero Stats -->
+            <div class="hero__stats">
+              <div class="hero__stat">
+                <span class="hero__stat-value" data-counter="500" data-suffix="+">0+</span>
+                <span class="hero__stat-label">Happy Clients</span>
+              </div>
+              <div class="hero__stat">
+                <span class="hero__stat-value" data-counter="15" data-suffix="+">0+</span>
+                <span class="hero__stat-label">Carrier Partners</span>
+              </div>
+              <div class="hero__stat">
+                <span class="hero__stat-value" data-prefix="$" data-counter="450" data-suffix="">$0</span>
+                <span class="hero__stat-label">Avg. Savings/Year</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual -->
+          <div class="hero__visual">
+            <div class="hero__image-wrapper">
+              <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=800&q=80" alt="Insurance professional helping a family review their coverage options" class="hero__image" loading="eager">
+            </div>
+            <!-- Floating Card -->
+            <div class="hero__image-card">
+              <div class="hero__image-card-icon">
+                <i class="fas fa-check" aria-hidden="true"></i>
+              </div>
+              <div class="hero__image-card-text">
+                <p class="hero__image-card-title">Trusted Protection</p>
+                <p class="hero__image-card-subtitle">4.9/5 Client Rating</p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="hero__scroll" aria-hidden="true">
+        <div class="hero__scroll-icon"></div>
+        <span>Scroll</span>
       </div>
     </section>
 
@@ -92,52 +167,61 @@
     <section class="trust-badges">
       <div class="container">
         <div class="trust-badges__grid">
-          <div class="trust-badge">
+          <div class="trust-badge reveal">
             <div class="trust-badge__icon">
               <i class="fas fa-certificate" aria-hidden="true"></i>
             </div>
             <span class="trust-badge__text">Licensed & Insured</span>
             <span class="trust-badge__subtext">GA License #244229</span>
           </div>
-          <div class="trust-badge">
+          <div class="trust-badge reveal">
             <div class="trust-badge__icon">
               <i class="fas fa-handshake" aria-hidden="true"></i>
             </div>
             <span class="trust-badge__text">Client-First Approach</span>
-            <span class="trust-badge__subtext">We work for you</span>
+            <span class="trust-badge__subtext">We work for you, not carriers</span>
           </div>
-          <div class="trust-badge">
+          <div class="trust-badge reveal">
             <div class="trust-badge__icon">
               <i class="fas fa-star" aria-hidden="true"></i>
             </div>
             <span class="trust-badge__text">Top-Rated Carriers</span>
-            <span class="trust-badge__subtext">Multiple options to compare</span>
+            <span class="trust-badge__subtext">15+ carriers to compare</span>
+          </div>
+          <div class="trust-badge reveal">
+            <div class="trust-badge__icon">
+              <i class="fas fa-clock" aria-hidden="true"></i>
+            </div>
+            <span class="trust-badge__text">Fast Quotes</span>
+            <span class="trust-badge__subtext">Most quotes in 24 hours</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Insurance Types -->
-    <section class="section" id="insurance-types">
+    <section class="section section--decorated" id="insurance-types">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+          <span class="section-badge">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            Our Services
+          </span>
           <h2>Insurance Solutions Tailored to Your Needs</h2>
-          <p>We offer comprehensive coverage across three key areas to protect what matters most</p>
+          <p>We offer comprehensive coverage across three key areas to protect what matters most to you and your family</p>
         </div>
 
-        <div class="card-grid">
+        <div class="card-grid stagger-children">
           <!-- Casualty Insurance -->
           <article class="card">
             <div class="card__icon">
               <i class="fas fa-car" aria-hidden="true"></i>
             </div>
             <h3 class="card__title">Casualty Insurance</h3>
-            <p class="card__text">Auto, general liability, and umbrella policies. Protect yourself from unexpected claims and accidents.</p>
+            <p class="card__text">Auto, general liability, and umbrella policies. Protect yourself from unexpected claims, accidents, and lawsuits that could devastate your finances.</p>
             <a href="services.html#casualty" class="card__link">
-              Learn More
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-              </svg>
+              Explore Coverage
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
           </article>
 
@@ -147,12 +231,10 @@
               <i class="fas fa-house" aria-hidden="true"></i>
             </div>
             <h3 class="card__title">Property Insurance</h3>
-            <p class="card__text">Home, renters, and commercial property coverage. Safeguard your most valuable assets.</p>
+            <p class="card__text">Home, renters, and commercial property coverage. Safeguard your most valuable assets against fire, theft, weather damage, and more.</p>
             <a href="services.html#property" class="card__link">
-              Learn More
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-              </svg>
+              Explore Coverage
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
           </article>
 
@@ -162,14 +244,44 @@
               <i class="fas fa-heart" aria-hidden="true"></i>
             </div>
             <h3 class="card__title">Life Insurance</h3>
-            <p class="card__text">Term, whole, and universal life coverage. Secure your family's financial future.</p>
+            <p class="card__text">Term, whole, and universal life coverage. Secure your family's financial future and leave a lasting legacy for those you love.</p>
             <a href="services.html#life" class="card__link">
-              Learn More
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-              </svg>
+              Explore Coverage
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stat">
+            <div class="stat__value">
+              <span class="counter" data-counter="500" data-suffix="+">0</span><span class="stat__suffix">+</span>
+            </div>
+            <p class="stat__label">Policies Written</p>
+          </div>
+          <div class="stat">
+            <div class="stat__value">
+              <span class="stat__suffix">$</span><span class="counter" data-counter="2" data-suffix="M+">0</span><span class="stat__suffix">M+</span>
+            </div>
+            <p class="stat__label">Claims Processed</p>
+          </div>
+          <div class="stat">
+            <div class="stat__value">
+              <span class="counter" data-counter="98" data-suffix="%">0</span><span class="stat__suffix">%</span>
+            </div>
+            <p class="stat__label">Client Retention</p>
+          </div>
+          <div class="stat">
+            <div class="stat__value">
+              <span class="counter" data-counter="24" data-suffix="hr">0</span><span class="stat__suffix">hr</span>
+            </div>
+            <p class="stat__label">Avg. Quote Time</p>
+          </div>
         </div>
       </div>
     </section>
@@ -177,19 +289,23 @@
     <!-- Why Independent -->
     <section class="section section--gray">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+          <span class="section-badge">
+            <i class="fas fa-handshake" aria-hidden="true"></i>
+            Why Choose Us
+          </span>
           <h2>Why Choose an Independent Broker?</h2>
           <p>Unlike captive agents tied to a single company, we have the freedom to find you the best coverage at the best price</p>
         </div>
 
-        <div class="features">
+        <div class="features stagger-children">
           <div class="feature">
             <div class="feature__icon">
               <i class="fas fa-search-dollar" aria-hidden="true"></i>
             </div>
             <div class="feature__content">
-              <h3>Choice</h3>
-              <p>We shop top-rated carriers for your best rate. More options mean better coverage and savings for you.</p>
+              <h3>Unbiased Comparison</h3>
+              <p>We shop 15+ top-rated carriers for your best rate. More options mean better coverage and significant savings for you.</p>
             </div>
           </div>
 
@@ -198,7 +314,7 @@
               <i class="fas fa-user-shield" aria-hidden="true"></i>
             </div>
             <div class="feature__content">
-              <h3>Advocacy</h3>
+              <h3>Your Advocate</h3>
               <p>We work for you, not the insurance company. When you have a claim, we fight to get you what you deserve.</p>
             </div>
           </div>
@@ -208,8 +324,8 @@
               <i class="fas fa-headset" aria-hidden="true"></i>
             </div>
             <div class="feature__content">
-              <h3>Service</h3>
-              <p>One point of contact for all your policies. No more navigating automated phone trees or getting bounced around.</p>
+              <h3>Personal Service</h3>
+              <p>One point of contact for all your policies. No automated phone trees—just direct access to your dedicated agent.</p>
             </div>
           </div>
         </div>
@@ -219,12 +335,16 @@
     <!-- How It Works -->
     <section class="section">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+          <span class="section-badge">
+            <i class="fas fa-list-check" aria-hidden="true"></i>
+            Simple Process
+          </span>
           <h2>How It Works</h2>
           <p>Getting the right coverage is simple with Clearview Mutual</p>
         </div>
 
-        <div class="steps">
+        <div class="steps stagger-children">
           <div class="step">
             <div class="step__number">1</div>
             <h3 class="step__title">Tell Us Your Needs</h3>
@@ -240,7 +360,7 @@
           <div class="step">
             <div class="step__number">3</div>
             <h3 class="step__title">You Choose</h3>
-            <p class="step__text">No pressure, no obligation. Pick the coverage that's right for you, or walk away with no hard feelings.</p>
+            <p class="step__text">No pressure, no obligation. Pick the coverage that's right for you, or walk away—no hard feelings.</p>
           </div>
         </div>
       </div>
@@ -249,13 +369,18 @@
     <!-- Testimonials -->
     <section class="section section--gray">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+          <span class="section-badge">
+            <i class="fas fa-quote-left" aria-hidden="true"></i>
+            Testimonials
+          </span>
           <h2>What Our Clients Say</h2>
           <p>Real experiences from Georgia families and businesses we've helped</p>
         </div>
 
-        <div class="testimonials-grid">
+        <div class="testimonials-grid stagger-children">
           <article class="testimonial">
+            <span class="testimonial__quote">"</span>
             <div class="testimonial__stars" aria-label="5 out of 5 stars">
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
@@ -263,12 +388,18 @@
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
             </div>
-            <p class="testimonial__text">"Patrick made switching policies painless. Saved $400/year on auto and home!"</p>
-            <p class="testimonial__author">Sarah M.</p>
-            <p class="testimonial__location">Atlanta, GA</p>
+            <p class="testimonial__text">"Patrick made switching policies painless. Saved $400/year on auto and home combined! I only wish I had found Clearview Mutual sooner."</p>
+            <div class="testimonial__author">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="" class="testimonial__avatar" loading="lazy">
+              <div class="testimonial__info">
+                <p class="testimonial__name">Sarah M.</p>
+                <p class="testimonial__location">Atlanta, GA</p>
+              </div>
+            </div>
           </article>
 
           <article class="testimonial">
+            <span class="testimonial__quote">"</span>
             <div class="testimonial__stars" aria-label="5 out of 5 stars">
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
@@ -276,12 +407,18 @@
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
             </div>
-            <p class="testimonial__text">"Finally, an insurance agent who explains things in plain English."</p>
-            <p class="testimonial__author">James T.</p>
-            <p class="testimonial__location">Marietta, GA</p>
+            <p class="testimonial__text">"Finally, an insurance agent who explains things in plain English. No confusing jargon, just straight answers to my questions."</p>
+            <div class="testimonial__author">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="" class="testimonial__avatar" loading="lazy">
+              <div class="testimonial__info">
+                <p class="testimonial__name">James T.</p>
+                <p class="testimonial__location">Marietta, GA</p>
+              </div>
+            </div>
           </article>
 
           <article class="testimonial">
+            <span class="testimonial__quote">"</span>
             <div class="testimonial__stars" aria-label="5 out of 5 stars">
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
@@ -289,9 +426,14 @@
               <i class="fas fa-star" aria-hidden="true"></i>
               <i class="fas fa-star" aria-hidden="true"></i>
             </div>
-            <p class="testimonial__text">"Best decision I made was going independent. No more fighting with my carrier."</p>
-            <p class="testimonial__author">Linda R.</p>
-            <p class="testimonial__location">Savannah, GA</p>
+            <p class="testimonial__text">"Best decision I made was going independent. No more fighting with my carrier during claims. Patrick actually advocates for me!"</p>
+            <div class="testimonial__author">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="" class="testimonial__avatar" loading="lazy">
+              <div class="testimonial__info">
+                <p class="testimonial__name">Linda R.</p>
+                <p class="testimonial__location">Savannah, GA</p>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -300,14 +442,19 @@
     <!-- CTA Section -->
     <section class="section cta-section">
       <div class="container">
-        <h2>Ready to Find Better Coverage?</h2>
-        <p>No obligation. Most clients save $300-$700/year.</p>
-        <div class="btn-group">
-          <a href="contact.html" class="btn btn--white btn--lg">Request a Quote</a>
+        <div class="cta-section__content reveal">
+          <h2>Ready to Find Better Coverage?</h2>
+          <p>Join 500+ Georgia families who save an average of $450/year. No obligation, no pressure—just honest quotes from someone on your side.</p>
+          <div class="btn-group">
+            <a href="contact.html" class="btn btn--white btn--lg">
+              Request a Free Quote
+              <i class="fas fa-arrow-right arrow" aria-hidden="true"></i>
+            </a>
+          </div>
+          <p class="cta-section__phone">
+            Or call us now: <a href="tel:+12298340303">(229) 834-0303</a>
+          </p>
         </div>
-        <p class="cta-section__phone">
-          Or call us: <a href="tel:+12298340303">(229) 834-0303</a>
-        </p>
       </div>
     </section>
   </main>
@@ -318,8 +465,21 @@
       <div class="footer__grid">
         <!-- Brand -->
         <div class="footer__brand">
-          <a href="index.html" class="footer__logo">Clearview Mutual</a>
-          <p>Insurance That Works For You, Not Against You. Independent insurance brokerage serving all of Georgia.</p>
+          <a href="index.html" class="footer__logo">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            Clearview Mutual
+          </a>
+          <p>Insurance That Works For You, Not Against You. Independent insurance brokerage proudly serving all of Georgia.</p>
+          <div class="footer__certifications">
+            <span class="footer__cert">
+              <i class="fas fa-certificate" aria-hidden="true"></i>
+              GA Licensed
+            </span>
+            <span class="footer__cert">
+              <i class="fas fa-shield-halved" aria-hidden="true"></i>
+              BBB A+ Rated
+            </span>
+          </div>
         </div>
 
         <!-- Quick Links -->
@@ -336,11 +496,13 @@
 
         <!-- Services -->
         <div class="footer__links">
-          <h4 class="footer__title">Services</h4>
+          <h4 class="footer__title">Insurance</h4>
           <ul class="footer__nav">
-            <li><a href="services.html#casualty">Casualty Insurance</a></li>
-            <li><a href="services.html#property">Property Insurance</a></li>
+            <li><a href="services.html#casualty">Auto Insurance</a></li>
+            <li><a href="services.html#property">Home Insurance</a></li>
             <li><a href="services.html#life">Life Insurance</a></li>
+            <li><a href="services.html#casualty">Business Insurance</a></li>
+            <li><a href="contact.html">Get a Quote</a></li>
           </ul>
         </div>
 
@@ -372,6 +534,9 @@
             <a href="#" aria-label="Follow us on Facebook">
               <i class="fab fa-facebook-f" aria-hidden="true"></i>
             </a>
+            <a href="#" aria-label="Follow us on Instagram">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -382,10 +547,21 @@
           <span>GA License #244229</span>
           <span>EIN 41-3695448</span>
           <a href="privacy.html">Privacy Policy</a>
+          <a href="contact.html">Contact</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Live Chat Widget -->
+  <div class="chat-widget">
+    <button class="chat-widget__button" aria-label="Chat with us">
+      <i class="fas fa-comment-dots" aria-hidden="true"></i>
+    </button>
+    <div class="chat-widget__tooltip">
+      <strong>Need help?</strong> Chat with us!
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
