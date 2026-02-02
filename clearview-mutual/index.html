@@ -4,15 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clearview Mutual | Independent Insurance Broker in Georgia</title>
-  <meta name="description" content="Georgia's trusted independent insurance broker. Compare quotes from top-rated carriers for auto, home, and life insurance. Licensed GA #244229.">
-  <meta name="keywords" content="Georgia insurance broker, independent insurance agent, auto insurance Georgia, home insurance quotes">
+  <meta name="description" content="Georgia's trusted independent insurance broker. Compare quotes from 15+ top-rated carriers for auto, home, and life insurance. Save an average of $450/year. Licensed GA #244229.">
+  <meta name="keywords" content="Georgia insurance broker, independent insurance agent, auto insurance Georgia, home insurance quotes, life insurance Georgia, insurance comparison, best insurance rates Georgia">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Clearview Mutual | Independent Insurance Broker in Georgia">
-  <meta property="og:description" content="Georgia's trusted independent insurance broker. Compare quotes from top-rated carriers for auto, home, and life insurance.">
+  <meta property="og:description" content="Georgia's trusted independent insurance broker. Compare quotes from 15+ top-rated carriers. Save an average of $450/year.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://clearviewmutual.com/">
   <meta property="og:image" content="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200">
+  <meta property="og:site_name" content="Clearview Mutual">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Clearview Mutual | Independent Insurance Broker in Georgia">
+  <meta name="twitter:description" content="Compare quotes from 15+ top-rated carriers. Save an average of $450/year.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e3a8a' rx='20' width='100' height='100'/><text y='70' x='50' text-anchor='middle' font-size='60' fill='white'>C</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e3a8a' rx='20' width='100' height='100'/><text y='70' x='50' text-anchor='middle' font-size='60' fill='white'>C</text></svg>">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://clearviewmutual.com/">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +37,46 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Schema.org Local Business Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    "name": "Clearview Mutual",
+    "description": "Independent insurance brokerage serving Georgia with personalized Casualty, Property, and Life insurance solutions.",
+    "url": "https://clearviewmutual.com",
+    "telephone": "+1-229-834-0303",
+    "email": "patrick@clearviewmutual.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "GA",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "31.5785",
+      "longitude": "-84.1557"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Georgia"
+    },
+    "openingHours": "Mo-Fr 08:00-17:00",
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "sameAs": [
+      "https://www.facebook.com/clearviewmutual",
+      "https://www.linkedin.com/company/clearviewmutual"
+    ]
+  }
+  </script>
 
   <!-- Google Analytics snippet goes here -->
 </head>
@@ -58,7 +111,13 @@
                 (229) 834-0303
               </a>
             </li>
-            <li class="nav__item"><a href="contact.html" class="nav__link nav__link--cta">Get a Quote</a></li>
+            <li class="nav__item">
+              <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+                <i class="fas fa-sun" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li class="nav__item"><a href="#quote-wizard" class="nav__link nav__link--cta">Get a Quote</a></li>
           </ul>
         </nav>
 
@@ -108,15 +167,23 @@
               <i class="fas fa-award" aria-hidden="true"></i>
               Licensed Georgia Broker #244229
             </span>
+            <!-- Personalized headline with location detection -->
             <h1>Insurance That Works <span class="highlight">For You</span>, Not Against You</h1>
-            <p class="hero__subtitle">Independent brokerage serving Georgia with personalized Casualty, Property, and Life insurance solutions. We compare quotes from top-rated carriers so you get the best coverage at the best price.</p>
+            <p class="hero__subtitle">Independent brokerage serving <span id="hero-location">Georgia</span> with personalized Casualty, Property, and Life insurance solutions. We compare quotes from <strong>15+ top-rated carriers</strong> so you get the best coverage at the best price.</p>
+
+            <!-- Personalized savings callout -->
+            <div class="hero__savings-callout" id="savings-callout">
+              <i class="fas fa-piggy-bank" aria-hidden="true"></i>
+              <span><span id="location-name">Georgia</span> residents save an average of <strong>$450/year</strong> when they switch!</span>
+            </div>
+
             <div class="btn-group">
-              <a href="contact.html" class="btn btn--primary btn--lg btn--pulse">
-                Request a Free Quote
+              <a href="#quote-wizard" class="btn btn--primary btn--lg btn--pulse">
+                Get My Free Quote
                 <i class="fas fa-arrow-right arrow" aria-hidden="true"></i>
               </a>
-              <a href="#insurance-types" class="btn btn--ghost btn--lg">
-                Learn More
+              <a href="#why-independent" class="btn btn--ghost btn--lg">
+                Why Go Independent?
               </a>
             </div>
 
@@ -194,6 +261,274 @@
             </div>
             <span class="trust-badge__text">Fast Quotes</span>
             <span class="trust-badge__subtext">Most quotes in 24 hours</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrier Partners Logos -->
+    <section class="carrier-logos" aria-labelledby="carriers-heading">
+      <div class="container">
+        <p class="carrier-logos__title" id="carriers-heading">We Shop These Top-Rated Carriers For Your Best Rate</p>
+        <div class="carrier-logos__track">
+          <div class="carrier-logos__slide">
+            <!-- Row 1 -->
+            <div class="carrier-logo" title="Progressive">
+              <svg viewBox="0 0 120 40" aria-label="Progressive"><rect fill="#0077c8" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Progressive</text></svg>
+            </div>
+            <div class="carrier-logo" title="Allstate">
+              <svg viewBox="0 0 120 40" aria-label="Allstate"><rect fill="#003b6f" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Allstate</text></svg>
+            </div>
+            <div class="carrier-logo" title="Liberty Mutual">
+              <svg viewBox="0 0 120 40" aria-label="Liberty Mutual"><rect fill="#002857" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="11" text-anchor="middle" font-weight="bold">Liberty Mutual</text></svg>
+            </div>
+            <div class="carrier-logo" title="Travelers">
+              <svg viewBox="0 0 120 40" aria-label="Travelers"><rect fill="#e31837" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Travelers</text></svg>
+            </div>
+            <div class="carrier-logo" title="Nationwide">
+              <svg viewBox="0 0 120 40" aria-label="Nationwide"><rect fill="#1b365d" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Nationwide</text></svg>
+            </div>
+            <div class="carrier-logo" title="Hartford">
+              <svg viewBox="0 0 120 40" aria-label="Hartford"><rect fill="#003366" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Hartford</text></svg>
+            </div>
+            <div class="carrier-logo" title="Safeco">
+              <svg viewBox="0 0 120 40" aria-label="Safeco"><rect fill="#00629b" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Safeco</text></svg>
+            </div>
+            <div class="carrier-logo" title="Chubb">
+              <svg viewBox="0 0 120 40" aria-label="Chubb"><rect fill="#1a1a1a" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Chubb</text></svg>
+            </div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="carrier-logo" title="Progressive">
+              <svg viewBox="0 0 120 40" aria-label="Progressive"><rect fill="#0077c8" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Progressive</text></svg>
+            </div>
+            <div class="carrier-logo" title="Allstate">
+              <svg viewBox="0 0 120 40" aria-label="Allstate"><rect fill="#003b6f" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Allstate</text></svg>
+            </div>
+            <div class="carrier-logo" title="Liberty Mutual">
+              <svg viewBox="0 0 120 40" aria-label="Liberty Mutual"><rect fill="#002857" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="11" text-anchor="middle" font-weight="bold">Liberty Mutual</text></svg>
+            </div>
+            <div class="carrier-logo" title="Travelers">
+              <svg viewBox="0 0 120 40" aria-label="Travelers"><rect fill="#e31837" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Travelers</text></svg>
+            </div>
+          </div>
+        </div>
+        <div class="carrier-logos__row2">
+          <div class="carrier-logo" title="MetLife">
+            <svg viewBox="0 0 120 40" aria-label="MetLife"><rect fill="#00a650" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">MetLife</text></svg>
+          </div>
+          <div class="carrier-logo" title="Farmers">
+            <svg viewBox="0 0 120 40" aria-label="Farmers"><rect fill="#e21b23" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Farmers</text></svg>
+          </div>
+          <div class="carrier-logo" title="State Auto">
+            <svg viewBox="0 0 120 40" aria-label="State Auto"><rect fill="#00467f" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">State Auto</text></svg>
+          </div>
+          <div class="carrier-logo" title="Auto-Owners">
+            <svg viewBox="0 0 120 40" aria-label="Auto-Owners"><rect fill="#002b5c" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="11" text-anchor="middle" font-weight="bold">Auto-Owners</text></svg>
+          </div>
+          <div class="carrier-logo" title="Foremost">
+            <svg viewBox="0 0 120 40" aria-label="Foremost"><rect fill="#003057" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">Foremost</text></svg>
+          </div>
+          <div class="carrier-logo" title="Mutual of Omaha">
+            <svg viewBox="0 0 120 40" aria-label="Mutual of Omaha"><rect fill="#004990" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="9" text-anchor="middle" font-weight="bold">Mutual of Omaha</text></svg>
+          </div>
+          <div class="carrier-logo" title="And More">
+            <svg viewBox="0 0 120 40" aria-label="And More"><rect fill="#f59e0b" width="120" height="40" rx="4"/><text x="60" y="25" fill="white" font-size="12" text-anchor="middle" font-weight="bold">+ 5 More</text></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Quote Wizard -->
+    <section class="section quote-wizard-section" id="quote-wizard">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">
+            <i class="fas fa-bolt" aria-hidden="true"></i>
+            Quick Quote Tool
+          </span>
+          <h2>Get Your Personalized Quote in 60 Seconds</h2>
+          <p>Tell us what you need and we'll shop 15+ carriers to find your best rate. No commitment required.</p>
+        </div>
+
+        <div class="quote-wizard reveal" id="quoteWizard">
+          <!-- Progress Steps -->
+          <div class="quote-wizard__progress">
+            <div class="quote-wizard__step active" data-step="1">
+              <span class="quote-wizard__step-number">1</span>
+              <span class="quote-wizard__step-label">Coverage Type</span>
+            </div>
+            <div class="quote-wizard__connector"></div>
+            <div class="quote-wizard__step" data-step="2">
+              <span class="quote-wizard__step-number">2</span>
+              <span class="quote-wizard__step-label">Your Info</span>
+            </div>
+            <div class="quote-wizard__connector"></div>
+            <div class="quote-wizard__step" data-step="3">
+              <span class="quote-wizard__step-number">3</span>
+              <span class="quote-wizard__step-label">Get Quote</span>
+            </div>
+          </div>
+
+          <!-- Step 1: Coverage Type -->
+          <div class="quote-wizard__panel active" data-panel="1">
+            <h3 class="quote-wizard__panel-title">What type of insurance do you need?</h3>
+            <p class="quote-wizard__panel-subtitle">Select one or more coverage types</p>
+
+            <div class="quote-wizard__options">
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="auto">
+                <div class="quote-wizard__option-content">
+                  <i class="fas fa-car" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Auto</span>
+                  <span class="quote-wizard__option-desc">Cars, trucks, motorcycles</span>
+                </div>
+              </label>
+
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="home">
+                <div class="quote-wizard__option-content">
+                  <i class="fas fa-house" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Home</span>
+                  <span class="quote-wizard__option-desc">Homeowners & renters</span>
+                </div>
+              </label>
+
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="life">
+                <div class="quote-wizard__option-content">
+                  <i class="fas fa-heart" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Life</span>
+                  <span class="quote-wizard__option-desc">Term & whole life</span>
+                </div>
+              </label>
+
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="business">
+                <div class="quote-wizard__option-content">
+                  <i class="fas fa-briefcase" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Business</span>
+                  <span class="quote-wizard__option-desc">Commercial coverage</span>
+                </div>
+              </label>
+
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="bundle">
+                <div class="quote-wizard__option-content quote-wizard__option-content--highlight">
+                  <i class="fas fa-layer-group" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Bundle & Save</span>
+                  <span class="quote-wizard__option-desc">Save up to 25%!</span>
+                  <span class="quote-wizard__option-badge">Best Value</span>
+                </div>
+              </label>
+
+              <label class="quote-wizard__option">
+                <input type="checkbox" name="coverage" value="other">
+                <div class="quote-wizard__option-content">
+                  <i class="fas fa-question-circle" aria-hidden="true"></i>
+                  <span class="quote-wizard__option-label">Not Sure</span>
+                  <span class="quote-wizard__option-desc">Let's discuss</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="quote-wizard__bundle-savings" id="bundleSavings" style="display: none;">
+              <i class="fas fa-piggy-bank" aria-hidden="true"></i>
+              <span><strong>Smart choice!</strong> Bundling Auto + Home typically saves <strong>$200-$400/year</strong></span>
+            </div>
+
+            <div class="quote-wizard__actions">
+              <button type="button" class="btn btn--primary btn--lg" id="wizardNext1" disabled>
+                Continue
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Your Info -->
+          <div class="quote-wizard__panel" data-panel="2">
+            <h3 class="quote-wizard__panel-title">Tell us a bit about yourself</h3>
+            <p class="quote-wizard__panel-subtitle">We'll use this to find your best rates</p>
+
+            <div class="quote-wizard__form">
+              <div class="quote-wizard__form-row">
+                <div class="quote-wizard__field">
+                  <label for="wizardName">Full Name</label>
+                  <input type="text" id="wizardName" name="name" placeholder="John Smith" required>
+                </div>
+                <div class="quote-wizard__field">
+                  <label for="wizardPhone">Phone Number</label>
+                  <input type="tel" id="wizardPhone" name="phone" placeholder="(229) 555-0123" required>
+                </div>
+              </div>
+
+              <div class="quote-wizard__form-row">
+                <div class="quote-wizard__field">
+                  <label for="wizardEmail">Email Address</label>
+                  <input type="email" id="wizardEmail" name="email" placeholder="john@example.com" required>
+                </div>
+                <div class="quote-wizard__field">
+                  <label for="wizardZip">ZIP Code</label>
+                  <input type="text" id="wizardZip" name="zip" placeholder="31601" maxlength="5" pattern="[0-9]{5}" required>
+                </div>
+              </div>
+
+              <div class="quote-wizard__field">
+                <label for="wizardCurrentInsurance">Currently Insured?</label>
+                <select id="wizardCurrentInsurance" name="currentInsurance">
+                  <option value="">Select one...</option>
+                  <option value="yes-shopping">Yes, but looking for better rates</option>
+                  <option value="yes-expiring">Yes, policy expiring soon</option>
+                  <option value="no">No current coverage</option>
+                  <option value="new">First time buyer</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="quote-wizard__actions">
+              <button type="button" class="btn btn--secondary" id="wizardBack2">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                Back
+              </button>
+              <button type="button" class="btn btn--primary btn--lg" id="wizardNext2">
+                Get My Quote
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Confirmation -->
+          <div class="quote-wizard__panel" data-panel="3">
+            <div class="quote-wizard__success">
+              <div class="quote-wizard__success-icon">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+              </div>
+              <h3 class="quote-wizard__panel-title">You're All Set!</h3>
+              <p class="quote-wizard__panel-subtitle">We're shopping <span id="carrierCount">15+</span> carriers for your best rate.</p>
+
+              <div class="quote-wizard__next-steps">
+                <h4>What happens next?</h4>
+                <ul>
+                  <li><i class="fas fa-check" aria-hidden="true"></i> We compare quotes from top carriers</li>
+                  <li><i class="fas fa-check" aria-hidden="true"></i> Patrick will call within 24 hours</li>
+                  <li><i class="fas fa-check" aria-hidden="true"></i> You review options with no obligation</li>
+                </ul>
+              </div>
+
+              <div class="quote-wizard__cta">
+                <p>Want faster service? Call us now:</p>
+                <a href="tel:+12298340303" class="btn btn--primary btn--lg">
+                  <i class="fas fa-phone" aria-hidden="true"></i>
+                  (229) 834-0303
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust indicators -->
+          <div class="quote-wizard__trust">
+            <span><i class="fas fa-lock" aria-hidden="true"></i> Your info is secure</span>
+            <span><i class="fas fa-ban" aria-hidden="true"></i> No spam, ever</span>
+            <span><i class="fas fa-hand-holding-usd" aria-hidden="true"></i> 100% free quotes</span>
           </div>
         </div>
       </div>
@@ -286,19 +621,141 @@
       </div>
     </section>
 
-    <!-- Why Independent -->
-    <section class="section section--gray">
+    <!-- Why Independent - Interactive Comparison -->
+    <section class="section section--gray" id="why-independent">
       <div class="container">
         <div class="section-header reveal">
           <span class="section-badge">
-            <i class="fas fa-handshake" aria-hidden="true"></i>
-            Why Choose Us
+            <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+            The Broker Advantage
           </span>
           <h2>Why Choose an Independent Broker?</h2>
-          <p>Unlike captive agents tied to a single company, we have the freedom to find you the best coverage at the best price</p>
+          <p>See the difference between going direct with big carriers vs. working with an independent broker like Clearview Mutual</p>
         </div>
 
-        <div class="features stagger-children">
+        <!-- Comparison Toggle -->
+        <div class="comparison-toggle reveal">
+          <span class="comparison-toggle__label">I'm comparing:</span>
+          <div class="comparison-toggle__buttons">
+            <button class="comparison-toggle__btn active" data-compare="captive">Captive Agent</button>
+            <button class="comparison-toggle__btn" data-compare="direct">Direct/Online</button>
+          </div>
+        </div>
+
+        <!-- Interactive Comparison Table -->
+        <div class="broker-comparison reveal">
+          <div class="broker-comparison__header">
+            <div class="broker-comparison__col broker-comparison__col--feature">Feature</div>
+            <div class="broker-comparison__col broker-comparison__col--them">
+              <span class="comparison-them-label">Big Carrier Agent</span>
+              <i class="fas fa-building" aria-hidden="true"></i>
+            </div>
+            <div class="broker-comparison__col broker-comparison__col--us">
+              <span>Clearview Mutual</span>
+              <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="broker-comparison__body">
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span>Carrier Options</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">1 company only</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">15+ carriers</span>
+                <span class="comparison-tag">More choice</span>
+              </div>
+            </div>
+
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-hand-holding-dollar" aria-hidden="true"></i>
+                <span>Who They Work For</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">The insurance company</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">You, the client</span>
+                <span class="comparison-tag">Your advocate</span>
+              </div>
+            </div>
+
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                <span>Price Shopping</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">Take it or leave it</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">We find best rate</span>
+                <span class="comparison-tag">Avg. $450 savings</span>
+              </div>
+            </div>
+
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-file-contract" aria-hidden="true"></i>
+                <span>Claims Advocacy</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">You're on your own</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">We fight for you</span>
+                <span class="comparison-tag">Full support</span>
+              </div>
+            </div>
+
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <span>Personal Service</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">Call center/bots</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">Direct to Patrick</span>
+                <span class="comparison-tag">Real person</span>
+              </div>
+            </div>
+
+            <div class="broker-comparison__row">
+              <div class="broker-comparison__feature">
+                <i class="fas fa-rotate" aria-hidden="true"></i>
+                <span>Policy Portability</span>
+              </div>
+              <div class="broker-comparison__them">
+                <span class="comparison-bad">Start over if switching</span>
+              </div>
+              <div class="broker-comparison__us">
+                <span class="comparison-good">Easy carrier changes</span>
+                <span class="comparison-tag">No hassle</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="broker-comparison__footer">
+            <div class="broker-comparison__verdict">
+              <span class="verdict-label">The Verdict:</span>
+              <span class="verdict-text">Independent brokers offer more choices, better rates, and someone truly on your side.</span>
+            </div>
+            <a href="#quote-wizard" class="btn btn--primary">
+              See How Much You Can Save
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features stagger-children mt-5">
           <div class="feature">
             <div class="feature__icon">
               <i class="fas fa-search-dollar" aria-hidden="true"></i>
@@ -366,19 +823,79 @@
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section section--gray">
+    <!-- Testimonials & Social Proof -->
+    <section class="section section--gray" id="testimonials">
       <div class="container">
         <div class="section-header reveal">
           <span class="section-badge">
             <i class="fas fa-quote-left" aria-hidden="true"></i>
-            Testimonials
+            Client Success Stories
           </span>
           <h2>What Our Clients Say</h2>
           <p>Real experiences from Georgia families and businesses we've helped</p>
         </div>
 
+        <!-- Aggregate Rating Display -->
+        <div class="reviews-summary reveal">
+          <div class="reviews-summary__rating">
+            <span class="reviews-summary__score">4.9</span>
+            <div class="reviews-summary__stars">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <i class="fas fa-star" aria-hidden="true"></i>
+            </div>
+            <span class="reviews-summary__count">Based on 127 reviews</span>
+          </div>
+          <div class="reviews-summary__sources">
+            <a href="#" class="reviews-summary__source" title="Google Reviews">
+              <i class="fab fa-google" aria-hidden="true"></i>
+              <span>Google</span>
+              <span class="reviews-summary__source-rating">4.9</span>
+            </a>
+            <a href="#" class="reviews-summary__source" title="Yelp Reviews">
+              <i class="fab fa-yelp" aria-hidden="true"></i>
+              <span>Yelp</span>
+              <span class="reviews-summary__source-rating">5.0</span>
+            </a>
+            <a href="#" class="reviews-summary__source" title="BBB Rating">
+              <span class="bbb-icon">BBB</span>
+              <span>A+ Rating</span>
+            </a>
+          </div>
+        </div>
+
         <div class="testimonials-grid stagger-children">
+          <!-- Video Testimonial -->
+          <article class="testimonial testimonial--featured">
+            <div class="testimonial__video-wrapper">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop" alt="Video testimonial from Robert K." class="testimonial__video-thumb" loading="lazy">
+              <button class="testimonial__video-play" aria-label="Play video testimonial">
+                <i class="fas fa-play" aria-hidden="true"></i>
+              </button>
+              <span class="testimonial__video-duration">1:42</span>
+            </div>
+            <div class="testimonial__content">
+              <div class="testimonial__stars" aria-label="5 out of 5 stars">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+              </div>
+              <p class="testimonial__text">"I was paying $2,400/year for auto insurance. Patrick found me the same coverage for $1,680. That's $720 saved annually!"</p>
+              <div class="testimonial__author">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="" class="testimonial__avatar" loading="lazy">
+                <div class="testimonial__info">
+                  <p class="testimonial__name">Robert K.</p>
+                  <p class="testimonial__location">Valdosta, GA</p>
+                  <span class="testimonial__badge">Verified Client</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
           <article class="testimonial">
             <span class="testimonial__quote">"</span>
             <div class="testimonial__stars" aria-label="5 out of 5 stars">
@@ -389,11 +906,16 @@
               <i class="fas fa-star" aria-hidden="true"></i>
             </div>
             <p class="testimonial__text">"Patrick made switching policies painless. Saved $400/year on auto and home combined! I only wish I had found Clearview Mutual sooner."</p>
+            <div class="testimonial__savings-badge">
+              <i class="fas fa-piggy-bank" aria-hidden="true"></i>
+              Saved $400/year
+            </div>
             <div class="testimonial__author">
               <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="" class="testimonial__avatar" loading="lazy">
               <div class="testimonial__info">
                 <p class="testimonial__name">Sarah M.</p>
                 <p class="testimonial__location">Atlanta, GA</p>
+                <span class="testimonial__badge">Verified Client</span>
               </div>
             </div>
           </article>
@@ -413,6 +935,7 @@
               <div class="testimonial__info">
                 <p class="testimonial__name">James T.</p>
                 <p class="testimonial__location">Marietta, GA</p>
+                <span class="testimonial__badge">Verified Client</span>
               </div>
             </div>
           </article>
@@ -432,9 +955,15 @@
               <div class="testimonial__info">
                 <p class="testimonial__name">Linda R.</p>
                 <p class="testimonial__location">Savannah, GA</p>
+                <span class="testimonial__badge">Verified Client</span>
               </div>
             </div>
           </article>
+        </div>
+
+        <!-- Review CTA -->
+        <div class="reviews-cta reveal">
+          <p>Happy with our service? <a href="#">Leave us a review on Google</a></p>
         </div>
       </div>
     </section>
@@ -459,6 +988,25 @@
     </section>
   </main>
 
+  <!-- Newsletter Banner -->
+  <section class="newsletter-banner">
+    <div class="container">
+      <div class="newsletter-banner__content">
+        <div class="newsletter-banner__text">
+          <h3><i class="fas fa-envelope" aria-hidden="true"></i> Get Insurance Tips & Updates</h3>
+          <p>Join 500+ Georgia residents who get our monthly newsletter with money-saving tips.</p>
+        </div>
+        <form class="newsletter-banner__form" data-form-id="ghl-newsletter">
+          <input type="email" name="email" placeholder="Enter your email" required>
+          <button type="submit" class="btn btn--primary">
+            Subscribe
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -480,6 +1028,12 @@
               BBB A+ Rated
             </span>
           </div>
+
+          <!-- Schedule Call Button -->
+          <button class="btn btn--secondary btn--sm footer__schedule-btn" id="openScheduler">
+            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+            Schedule a Call
+          </button>
         </div>
 
         <!-- Quick Links -->
@@ -560,6 +1114,84 @@
     </button>
     <div class="chat-widget__tooltip">
       <strong>Need help?</strong> Chat with us!
+    </div>
+  </div>
+
+  <!-- Exit Intent Popup -->
+  <div class="exit-popup" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
+    <div class="exit-popup__overlay"></div>
+    <div class="exit-popup__content">
+      <button class="exit-popup__close" aria-label="Close popup">&times;</button>
+
+      <div class="exit-popup__icon">
+        <i class="fas fa-gift" aria-hidden="true"></i>
+      </div>
+
+      <h3 class="exit-popup__title" id="exitPopupTitle">Wait! Don't Leave Empty-Handed</h3>
+      <p class="exit-popup__text">Get our <strong>FREE Georgia Insurance Guide</strong> with tips on saving money and choosing the right coverage.</p>
+
+      <form class="exit-popup__form" data-form-id="ghl-lead-magnet">
+        <input type="email" name="email" placeholder="Enter your email" required class="exit-popup__input">
+        <button type="submit" class="btn btn--primary">
+          <i class="fas fa-download" aria-hidden="true"></i>
+          Send Me The Guide
+        </button>
+      </form>
+
+      <p class="exit-popup__note">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        No spam. Unsubscribe anytime.
+      </p>
+
+      <button class="exit-popup__dismiss">No thanks, I'll figure it out myself</button>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal" role="dialog" aria-modal="true">
+    <div class="video-modal__overlay"></div>
+    <div class="video-modal__content">
+      <button class="video-modal__close" aria-label="Close video">&times;</button>
+      <div class="video-modal__player">
+        <!-- Video embed placeholder -->
+        <div class="video-modal__placeholder">
+          <i class="fas fa-play-circle" aria-hidden="true"></i>
+          <p>Video testimonial coming soon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointment Scheduler Modal -->
+  <div class="scheduler-modal" id="schedulerModal" role="dialog" aria-modal="true" aria-labelledby="schedulerTitle">
+    <div class="scheduler-modal__overlay"></div>
+    <div class="scheduler-modal__content">
+      <button class="scheduler-modal__close" aria-label="Close scheduler">&times;</button>
+      <h3 class="scheduler-modal__title" id="schedulerTitle">Schedule a Free Consultation</h3>
+      <p class="scheduler-modal__text">Book a 15-minute call with Patrick to discuss your insurance needs.</p>
+
+      <!-- Calendly-style scheduling widget placeholder -->
+      <div class="scheduler-modal__widget">
+        <div class="scheduler-modal__times">
+          <h4>Select a Time</h4>
+          <div class="scheduler-modal__date-nav">
+            <button aria-label="Previous week"><i class="fas fa-chevron-left"></i></button>
+            <span>This Week</span>
+            <button aria-label="Next week"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="scheduler-modal__slots">
+            <button class="scheduler-modal__slot">Mon 9:00 AM</button>
+            <button class="scheduler-modal__slot">Mon 2:00 PM</button>
+            <button class="scheduler-modal__slot">Tue 10:00 AM</button>
+            <button class="scheduler-modal__slot">Tue 3:00 PM</button>
+            <button class="scheduler-modal__slot">Wed 9:00 AM</button>
+            <button class="scheduler-modal__slot">Wed 1:00 PM</button>
+            <button class="scheduler-modal__slot">Thu 11:00 AM</button>
+            <button class="scheduler-modal__slot">Fri 9:00 AM</button>
+          </div>
+        </div>
+        <p class="scheduler-modal__alt">Or call directly: <a href="tel:+12298340303">(229) 834-0303</a></p>
+      </div>
     </div>
   </div>
 

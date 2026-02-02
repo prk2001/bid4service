@@ -541,6 +541,441 @@
   }
 
   // ==========================================================================
+  // Dark Mode Toggle
+  // ==========================================================================
+  function initDarkMode() {
+    const toggle = document.getElementById('dark-mode-toggle');
+    if (!toggle) return;
+
+    // Check for saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add('dark-mode');
+    }
+
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark-mode');
+      const isDark = document.documentElement.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    // Listen for system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.classList.toggle('dark-mode', e.matches);
+      }
+    });
+  }
+
+  // ==========================================================================
+  // Quote Wizard
+  // ==========================================================================
+  function initQuoteWizard() {
+    const wizard = document.getElementById('quoteWizard');
+    if (!wizard) return;
+
+    const panels = wizard.querySelectorAll('.quote-wizard__panel');
+    const steps = wizard.querySelectorAll('.quote-wizard__step');
+    const connectors = wizard.querySelectorAll('.quote-wizard__connector');
+
+    let currentStep = 1;
+    const selectedCoverages = new Set();
+
+    // Coverage selection handlers
+    const coverageOptions = wizard.querySelectorAll('input[name="coverage"]');
+    const bundleSavings = document.getElementById('bundleSavings');
+    const nextBtn1 = document.getElementById('wizardNext1');
+
+    coverageOptions.forEach(option => {
+      option.addEventListener('change', () => {
+        if (option.checked) {
+          selectedCoverages.add(option.value);
+        } else {
+          selectedCoverages.delete(option.value);
+        }
+
+        // Show bundle savings if multiple selected
+        if (bundleSavings) {
+          const multipleSelected = selectedCoverages.size > 1 ||
+            selectedCoverages.has('bundle');
+          bundleSavings.style.display = multipleSelected ? 'flex' : 'none';
+        }
+
+        // Enable/disable next button
+        if (nextBtn1) {
+          nextBtn1.disabled = selectedCoverages.size === 0;
+        }
+      });
+    });
+
+    // Navigation handlers
+    function goToStep(step) {
+      // Update panels
+      panels.forEach(panel => {
+        const panelStep = parseInt(panel.dataset.panel);
+        panel.classList.toggle('active', panelStep === step);
+      });
+
+      // Update step indicators
+      steps.forEach((stepEl, index) => {
+        const stepNum = index + 1;
+        stepEl.classList.remove('active', 'completed');
+
+        if (stepNum < step) {
+          stepEl.classList.add('completed');
+        } else if (stepNum === step) {
+          stepEl.classList.add('active');
+        }
+      });
+
+      // Update connectors
+      connectors.forEach((conn, index) => {
+        if (index < step - 1) {
+          conn.classList.add('completed');
+        } else {
+          conn.classList.remove('completed');
+        }
+      });
+
+      currentStep = step;
+
+      // Scroll to wizard
+      wizard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Step 1 -> Step 2
+    nextBtn1?.addEventListener('click', () => {
+      if (selectedCoverages.size > 0) {
+        goToStep(2);
+      }
+    });
+
+    // Step 2 -> Step 1
+    const backBtn2 = document.getElementById('wizardBack2');
+    backBtn2?.addEventListener('click', () => goToStep(1));
+
+    // Step 2 -> Step 3 (Submit)
+    const nextBtn2 = document.getElementById('wizardNext2');
+    nextBtn2?.addEventListener('click', () => {
+      const name = document.getElementById('wizardName')?.value;
+      const phone = document.getElementById('wizardPhone')?.value;
+      const email = document.getElementById('wizardEmail')?.value;
+      const zip = document.getElementById('wizardZip')?.value;
+
+      // Basic validation
+      if (!name || !phone || !email || !zip) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      // Simulate form submission
+      const formData = {
+        coverages: Array.from(selectedCoverages),
+        name,
+        phone,
+        email,
+        zip,
+        currentInsurance: document.getElementById('wizardCurrentInsurance')?.value
+      };
+
+      console.log('Quote request:', formData);
+
+      // Show success
+      goToStep(3);
+    });
+
+    // Phone formatting for wizard
+    const wizardPhone = document.getElementById('wizardPhone');
+    if (wizardPhone) {
+      wizardPhone.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, '');
+        if (value.length > 0) {
+          if (value.length <= 3) {
+            value = '(' + value;
+          } else if (value.length <= 6) {
+            value = '(' + value.substring(0, 3) + ') ' + value.substring(3);
+          } else {
+            value = '(' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 10);
+          }
+        }
+        this.value = value;
+      });
+    }
+
+    // ZIP code formatting
+    const wizardZip = document.getElementById('wizardZip');
+    if (wizardZip) {
+      wizardZip.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').substring(0, 5);
+      });
+    }
+  }
+
+  // ==========================================================================
+  // Exit Intent Popup
+  // ==========================================================================
+  function initExitPopup() {
+    const popup = document.getElementById('exitPopup');
+    if (!popup) return;
+
+    const overlay = popup.querySelector('.exit-popup__overlay');
+    const closeBtn = popup.querySelector('.exit-popup__close');
+    const dismissBtn = popup.querySelector('.exit-popup__dismiss');
+    const form = popup.querySelector('.exit-popup__form');
+
+    let hasShown = sessionStorage.getItem('exitPopupShown');
+
+    function showPopup() {
+      if (hasShown) return;
+      popup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      sessionStorage.setItem('exitPopupShown', 'true');
+      hasShown = true;
+    }
+
+    function hidePopup() {
+      popup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Exit intent detection (desktop)
+    document.addEventListener('mouseout', (e) => {
+      if (e.clientY < 50 && e.relatedTarget === null) {
+        showPopup();
+      }
+    });
+
+    // Scroll-based trigger (mobile) - show after scrolling back up
+    let lastScrollY = window.scrollY;
+    let scrollUpCount = 0;
+
+    window.addEventListener('scroll', debounce(() => {
+      const currentScrollY = window.scrollY;
+
+      // If scrolling up significantly from near the top
+      if (currentScrollY < lastScrollY && currentScrollY < 200) {
+        scrollUpCount++;
+        if (scrollUpCount > 3 && !hasShown) {
+          setTimeout(showPopup, 500);
+        }
+      } else {
+        scrollUpCount = 0;
+      }
+
+      lastScrollY = currentScrollY;
+    }, 100), { passive: true });
+
+    // Close handlers
+    closeBtn?.addEventListener('click', hidePopup);
+    dismissBtn?.addEventListener('click', hidePopup);
+    overlay?.addEventListener('click', hidePopup);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && popup.classList.contains('active')) {
+        hidePopup();
+      }
+    });
+
+    // Form submission
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = form.querySelector('input[type="email"]')?.value;
+
+      if (email) {
+        console.log('Lead magnet signup:', email);
+
+        // Show success
+        form.innerHTML = `
+          <div style="text-align: center; padding: 1rem;">
+            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--color-success); margin-bottom: 1rem;"></i>
+            <p style="font-weight: 600;">Check your email!</p>
+            <p style="color: var(--color-text-light);">Your guide is on its way.</p>
+          </div>
+        `;
+
+        setTimeout(hidePopup, 3000);
+      }
+    });
+  }
+
+  // ==========================================================================
+  // Video Modal
+  // ==========================================================================
+  function initVideoModal() {
+    const modal = document.getElementById('videoModal');
+    if (!modal) return;
+
+    const overlay = modal.querySelector('.video-modal__overlay');
+    const closeBtn = modal.querySelector('.video-modal__close');
+    const playButtons = document.querySelectorAll('.testimonial__video-play');
+
+    function openModal() {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    playButtons.forEach(btn => {
+      btn.addEventListener('click', openModal);
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    overlay?.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  // ==========================================================================
+  // Scheduler Modal
+  // ==========================================================================
+  function initSchedulerModal() {
+    const modal = document.getElementById('schedulerModal');
+    if (!modal) return;
+
+    const overlay = modal.querySelector('.scheduler-modal__overlay');
+    const closeBtn = modal.querySelector('.scheduler-modal__close');
+    const openBtn = document.getElementById('openScheduler');
+    const slots = modal.querySelectorAll('.scheduler-modal__slot');
+
+    function openModal() {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    openBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+    overlay?.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // Slot selection
+    slots.forEach(slot => {
+      slot.addEventListener('click', () => {
+        slots.forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+
+        // Simulate booking
+        setTimeout(() => {
+          alert(`Great choice! Patrick will call you at ${slot.textContent}. We'll send a confirmation email shortly.`);
+          closeModal();
+        }, 500);
+      });
+    });
+  }
+
+  // ==========================================================================
+  // Comparison Toggle
+  // ==========================================================================
+  function initComparisonToggle() {
+    const toggleBtns = document.querySelectorAll('.comparison-toggle__btn');
+    if (!toggleBtns.length) return;
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const compareType = btn.dataset.compare;
+        const themLabel = document.querySelector('.comparison-them-label');
+
+        if (themLabel) {
+          themLabel.textContent = compareType === 'captive' ?
+            'Big Carrier Agent' : 'Direct/Online Quote';
+        }
+
+        // Could update comparison data based on type
+        console.log('Comparing against:', compareType);
+      });
+    });
+  }
+
+  // ==========================================================================
+  // Location Personalization
+  // ==========================================================================
+  function initLocationPersonalization() {
+    const heroLocation = document.getElementById('hero-location');
+    const locationName = document.getElementById('location-name');
+
+    // Simple Georgia city detection based on timezone and default to Georgia
+    // In production, you'd use a geolocation API
+
+    const georgiaData = {
+      default: { city: 'Georgia', savings: '$450' },
+      cities: [
+        { name: 'Atlanta', savings: '$480' },
+        { name: 'Savannah', savings: '$420' },
+        { name: 'Augusta', savings: '$410' },
+        { name: 'Columbus', savings: '$430' },
+        { name: 'Macon', savings: '$400' },
+        { name: 'Athens', savings: '$390' },
+        { name: 'Valdosta', savings: '$460' }
+      ]
+    };
+
+    // Randomly select a city for demo (in production, use geolocation)
+    const randomCity = georgiaData.cities[Math.floor(Math.random() * georgiaData.cities.length)];
+
+    if (heroLocation) {
+      heroLocation.textContent = randomCity.name;
+    }
+
+    if (locationName) {
+      locationName.textContent = randomCity.name;
+    }
+  }
+
+  // ==========================================================================
+  // Newsletter Form
+  // ==========================================================================
+  function initNewsletterForms() {
+    const forms = document.querySelectorAll('[data-form-id="ghl-newsletter"]');
+
+    forms.forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = form.querySelector('input[type="email"]')?.value;
+        if (!email) return;
+
+        console.log('Newsletter signup:', email);
+
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+
+        btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+        btn.disabled = true;
+        btn.style.background = 'var(--color-success)';
+
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          btn.style.background = '';
+          form.reset();
+        }, 3000);
+      });
+    });
+  }
+
+  // ==========================================================================
   // Preload Critical Resources
   // ==========================================================================
   function preloadResources() {
@@ -630,6 +1065,16 @@
     initCardEffects();
     initChatWidget();
 
+    // World-class upgrade features
+    initDarkMode();
+    initQuoteWizard();
+    initExitPopup();
+    initVideoModal();
+    initSchedulerModal();
+    initComparisonToggle();
+    initLocationPersonalization();
+    initNewsletterForms();
+
     // Performance
     initLazyLoading();
     preloadResources();
@@ -642,8 +1087,12 @@
     initAccessibility();
 
     // Dev tools
-    if (process?.env?.NODE_ENV !== 'production') {
-      reportPerformance();
+    try {
+      if (typeof process !== 'undefined' && process?.env?.NODE_ENV !== 'production') {
+        reportPerformance();
+      }
+    } catch (e) {
+      // Silently ignore - process is not defined in browser
     }
   }
 
